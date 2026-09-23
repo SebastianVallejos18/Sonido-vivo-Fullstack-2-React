@@ -1,16 +1,35 @@
-# React + Vite
+# Nombre del Equipo
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Integrantes
+- Sebastian Vallejos (seb.vallejos@duocuc.cl)
+- Diego Alvear (die.alvear@duocuc.cl)
+- Enzo Arriati  (en.arriati@duocuc.cl)
 
-Currently, two official plugins are available:
+## Caso
+Sonido Vivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Descripción del caso
+Tienda en linea de productos sonoros, tales como microfonos, parlantes, baterias, guitarras, etc...
+La aplicación permite iniciar sesión, explorar el catálogo, agregar productos
+al carrito y, para el rol administrador, gestionar el catálogo.
 
-## React Compiler
+## Estructura del proyecto
+src/
+├── components/
+│   ├── atoms/
+│   ├── molecules/
+│   ├── organisms/
+│   └── templates/
+└── pages/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tecnologías
+- React + Vite
+- React Bootstrap
 
-## Expanding the Oxlint configuration
+## Cómo ejecutar el proyecto
+npm install
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Material complementario
+Carpeta de Drive con documentos del semestre (ERS y otros):
+https://drive.google.com/drive/folders/1UhBwF-PorXAmK7vDMDS7_EXlZJyVqU1M?usp=sharing
