@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import FormField from "../molecule/FormField";
+import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 
 const patronCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
