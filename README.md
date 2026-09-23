@@ -1,4 +1,4 @@
-# [Nombre del Equipo]
+# Grupo 6
 
 ## Integrantes
 - Sebastian Vallejos (seb.vallejos@duocuc.cl)
