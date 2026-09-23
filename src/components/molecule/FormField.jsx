@@ -7,21 +7,18 @@ function FormField(props) {
 
   return (
     <div className="mb-3">
-      <label className="form-label d-block">
-        <Label text={props.label} />
-        <Input
-          id={props.id}
-          name={props.id}
-          type={tipo}
-          placeholder={props.placeholder}
-          value={props.value}
-          onChange={props.onChange}
-          autoComplete={props.autoComplete}
-          hasError={tieneError}
-          isVerified={props.isVerified}
-        />
-      </label>
-
+      <Label text={props.label} htmlFor={props.id} />
+      <Input
+        id={props.id}
+        name={props.id}
+        type={tipo}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        autoComplete={props.autoComplete}
+        hasError={tieneError}
+        isVerified={props.isVerified}
+      />
       {props.error ? (
         <div className="invalid-feedback d-block">
           {props.error}

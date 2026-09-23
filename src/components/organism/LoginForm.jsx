@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import FormField from "../molecule/FormField";
 import Button from "../atom/Button";
 
@@ -66,59 +67,65 @@ function LoginForm() {
   }
 
   return (
-    <div className="card shadow-sm p-4 mx-auto" style={{ maxWidth: "450px" }}>
-      <h2 className="text-center mb-4">Inicio de sesión</h2>
+    <Container className="my-4">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6} xl={5}>
+          <div className="card shadow-sm p-4">
+            <h2 className="text-center mb-4">Inicio de sesión</h2>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <FormField
-          id="nombreUsuario"
-          label="Nombre de usuario"
-          placeholder="Pepito Perez"
-          value={formData.nombreUsuario}
-          onChange={handleChange}
-          autoComplete="username"
-          error={errors.nombreUsuario}
-          isVerified={
-            touched.nombreUsuario &&
-            !errors.nombreUsuario &&
-            formData.nombreUsuario.trim() !== ""
-          }
-        />
+            <Form onSubmit={handleSubmit} noValidate>
+              <FormField
+                id="nombreUsuario"
+                label="Nombre de usuario"
+                placeholder="Pepito Perez"
+                value={formData.nombreUsuario}
+                onChange={handleChange}
+                autoComplete="username"
+                error={errors.nombreUsuario}
+                isVerified={
+                  touched.nombreUsuario &&
+                  !errors.nombreUsuario &&
+                  formData.nombreUsuario.trim() !== ""
+                }
+              />
 
-        <FormField
-          id="correo"
-          label="Correo electrónico"
-          type="email"
-          placeholder="ejemplo@gmail.com"
-          value={formData.correo}
-          onChange={handleChange}
-          autoComplete="email"
-          error={errors.correo}
-          isVerified={
-            touched.correo &&
-            !errors.correo &&
-            patronCorreo.test(formData.correo.trim())
-          }
-        />
+              <FormField
+                id="correo"
+                label="Correo electrónico"
+                type="email"
+                placeholder="ejemplo@gmail.com"
+                value={formData.correo}
+                onChange={handleChange}
+                autoComplete="email"
+                error={errors.correo}
+                isVerified={
+                  touched.correo &&
+                  !errors.correo &&
+                  patronCorreo.test(formData.correo.trim())
+                }
+              />
 
-        <div className="d-grid gap-2 mb-3">
-          <Button type="submit" variant="primary" text="Iniciar sesión" />
-        </div>
+              <div className="d-grid gap-2 mb-3">
+                <Button type="submit" variant="primary" text="Iniciar sesión" />
+              </div>
 
-        {mensaje.texto ? (
-          <div className={`alert alert-${mensaje.tipo} mt-3`} role="alert">
-            {mensaje.texto}
+              {mensaje.texto ? (
+                <div className={`alert alert-${mensaje.tipo} mt-3`} role="alert">
+                  {mensaje.texto}
+                </div>
+              ) : null}
+            </Form>
+
+            <p className="text-center mt-3 mb-0">
+              ¿Aún no tienes una cuenta?{" "}
+              <a href="registrarse.html" className="text-decoration-none">
+                ¡Haz clic aquí!
+              </a>
+            </p>
           </div>
-        ) : null}
-      </form>
-
-      <p className="text-center mt-3 mb-0">
-        ¿Aún no tienes una cuenta?{" "}
-        <a href="registrarse.html" className="text-decoration-none">
-          ¡Haz clic aquí!
-        </a>
-      </p>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

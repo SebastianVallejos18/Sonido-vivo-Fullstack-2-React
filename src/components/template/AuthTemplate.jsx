@@ -6,13 +6,7 @@ function AuthTemplate(props) {
     <div className="d-flex flex-column min-vh-100 bg-light">
       <Header />
       <main className="flex-grow-1 d-flex align-items-center justify-content-center py-4">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-lg-5">
-              {props.content}
-            </div>
-          </div>
-        </div>
+        {props.content}
       </main>
       <Footer />
     </div>
