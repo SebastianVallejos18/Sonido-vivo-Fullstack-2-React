@@ -1,4 +1,4 @@
-import LoginForm from "../components/organism/LoginForm";
+import LoginForm from "../components/organisms/LoginForm";
 import AuthTemplate from "../components/template/AuthTemplate";
 
 function LoginPage() {

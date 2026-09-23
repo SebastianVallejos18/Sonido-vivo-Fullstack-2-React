@@ -1,5 +1,5 @@
-import Label from "../atom/Label";
-import Input from "../atom/Input";
+import Label from "../atoms/Label";
+import Input from "../atoms/Input";
 
 function FormField(props) {
   const tipo = props.type || "text";

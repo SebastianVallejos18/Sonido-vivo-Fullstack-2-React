@@ -1,5 +1,5 @@
-import Header from "../organism/Header";
-import Footer from "../organism/Footer";
+import Header from "../organisms/Header";
+import Footer from "../organisms/Footer";
 
 function AuthTemplate(props) {
   return (
