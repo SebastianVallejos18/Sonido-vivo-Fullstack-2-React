@@ -1,7 +1,7 @@
-import HomePageTemplate from "../components/templates/HomePageTemplate";
 import CategoryNav from "../components/molecules/CategoryNav";
 import ProductSection from "../components/organisms/ProductSection";
 import categorias from "../data/productos";
+import HomePageTemplate from "../components/templates/HomePageTemplate";
 
 function CatalogPage() {
   return (
