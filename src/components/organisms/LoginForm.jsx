@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 
@@ -116,11 +117,11 @@ function LoginForm() {
               ) : null}
             </Form>
 
-            <p className="text-center mt-3 mb-0">
-              ¿Aún no tienes una cuenta?{" "}
-              <a href="registrarse.html" className="text-decoration-none">
-                ¡Haz clic aquí!
-              </a>
+              <p className="text-center mt-3 mb-0">
+                ¿Aún no tienes una cuenta?{" "}
+                <Link to="/register" className="text-decoration-none">
+                  ¡Registrate aqui!
+                </Link>
             </p>
           </div>
         </Col>

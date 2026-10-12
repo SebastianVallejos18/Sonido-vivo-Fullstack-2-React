@@ -1,15 +1,34 @@
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+
 function Header() {
   return (
-    <header className="bg-dark text-white text-center py-3 mb-4">
-      <h1 id="pageTitle" className="h3 m-0">
-        Sonido Vivo
-      </h1>
-      <p className="m-0 mt-2">
-        <a href="index.html" className="link-light text-decoration-none">
-          Click aqui para volver al inicio
-        </a>
-      </p>
-    </header>
+    <Navbar expand="md" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="fs-2 fw-bold">
+          Sonido Vivo
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="menu-principal" />
+
+        <Navbar.Collapse id="menu-principal">
+          <Nav className="ms-auto">
+            <Nav.Link as={NavLink} to="/" end>
+              Inicio
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/catalogo">
+              Productos
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact">
+              Contacto
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/login">
+              Iniciar sesión
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

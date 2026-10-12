@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 
@@ -142,12 +143,12 @@ function RegisterForm() {
               ) : null}
             </Form>
 
-            <p className="text-center mt-3 mb-0">
-              ¿Ya tienes una cuenta?{" "}
-              <a href="login.html" className="text-decoration-none">
-                Inicia sesión aquí
-              </a>
-            </p>
+              <p className="text-center mt-3 mb-0">
+                ¿Ya tienes una cuenta?{" "}
+                <Link to="/login" className="text-decoration-none">
+                  Inicia sesión aquí
+                </Link>
+              </p>
           </div>
         </Col>
       </Row>
