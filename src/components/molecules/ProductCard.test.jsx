@@ -1,0 +1,42 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import ProductCard from './ProductCard'
+
+describe('ProductCard', () => {
+  it('muestra nombre, precio, descripción e imagen del producto', () => {
+    render(
+      <ProductCard
+        image="guitarra.jpg"
+        alt="Guitarra acústica"
+        text="Guitarra acústica"
+        price="$150.000"
+        description="Ideal para principiantes"
+      />
+    )
+
+    expect(screen.getByRole('heading', { name: 'Guitarra acústica' })).toBeInTheDocument()
+    expect(screen.getByText('$150.000')).toBeInTheDocument()
+    expect(screen.getByText('Ideal para principiantes')).toBeInTheDocument()
+    expect(screen.getByAltText('Guitarra acústica')).toBeInTheDocument()
+  })
+
+  it('no muestra el botón si showButton no está activo', () => {
+    render(<ProductCard text="Teclado" price="$200.000" description="Teclado de 61 teclas" />)
+    expect(screen.queryByRole('button', { name: 'Agregar al carrito' })).not.toBeInTheDocument()
+  })
+
+  it('muestra el botón si showButton está activo, sin el mensaje todavía', () => {
+    render(<ProductCard text="Teclado" price="$200.000" description="Teclado de 61 teclas" showButton />)
+    expect(screen.getByRole('button', { name: 'Agregar al carrito' })).toBeInTheDocument()
+    expect(screen.queryByText('¡Producto agregado!')).not.toBeInTheDocument()
+  })
+
+  it('muestra "¡Producto agregado!" al hacer clic en el botón', async () => {
+    const user = userEvent.setup()
+    render(<ProductCard text="Teclado" price="$200.000" description="Teclado de 61 teclas" showButton />)
+
+    await user.click(screen.getByRole('button', { name: 'Agregar al carrito' }))
+
+    expect(screen.getByText('¡Producto agregado!')).toBeInTheDocument()
+  })
+})
