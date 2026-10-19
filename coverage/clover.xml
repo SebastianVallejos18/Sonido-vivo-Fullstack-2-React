@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792411775511" clover="3.2.0">
-  <project timestamp="1792411775511" name="All files">
-    <metrics statements="120" coveredstatements="120" conditionals="82" coveredconditionals="82" methods="32" coveredmethods="32" elements="234" coveredelements="234" complexity="0" loc="120" ncloc="120" packages="5" files="21" classes="21"/>
+<coverage generated="1792412112840" clover="3.2.0">
+  <project timestamp="1792412112840" name="All files">
+    <metrics statements="152" coveredstatements="152" conditionals="92" coveredconditionals="92" methods="42" coveredmethods="42" elements="286" coveredelements="286" complexity="0" loc="152" ncloc="152" packages="6" files="22" classes="22"/>
     <package name="components.atoms">
       <metrics statements="16" coveredstatements="16" conditionals="16" coveredconditionals="16" methods="6" coveredmethods="6"/>
       <file name="Button.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Button.jsx">
@@ -181,6 +181,44 @@
       <file name="HomePageTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/HomePageTemplate.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="services">
+      <metrics statements="32" coveredstatements="32" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="10"/>
+      <file name="carritoService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/carritoService.js">
+        <metrics statements="32" coveredstatements="32" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="10"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="32" type="stmt"/>
+        <line num="5" count="32" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="18" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
+        <line num="9" count="14" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="23" type="stmt"/>
+        <line num="20" count="20" type="stmt"/>
+        <line num="21" count="20" type="stmt"/>
+        <line num="23" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="26" count="18" type="stmt"/>
+        <line num="34" count="20" type="stmt"/>
+        <line num="35" count="20" type="stmt"/>
+        <line num="39" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
+        <line num="46" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
       </file>
     </package>
     <package name="utils">

@@ -22,6 +22,8 @@ src/
 │   ├── organisms/
 │   └── templates/
 └── pages/
+└── services/
+└── utils/
 ```
 
 ## Tecnologías
