@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792380692701" clover="3.2.0">
-  <project timestamp="1792380692701" name="All files">
-    <metrics statements="109" coveredstatements="107" conditionals="78" coveredconditionals="78" methods="28" coveredmethods="26" elements="215" coveredelements="211" complexity="0" loc="109" ncloc="109" packages="4" files="20" classes="20"/>
+<coverage generated="1792381002716" clover="3.2.0">
+  <project timestamp="1792381002716" name="All files">
+    <metrics statements="109" coveredstatements="109" conditionals="78" coveredconditionals="78" methods="28" coveredmethods="28" elements="215" coveredelements="215" complexity="0" loc="109" ncloc="109" packages="4" files="20" classes="20"/>
     <package name="atoms">
       <metrics statements="16" coveredstatements="16" conditionals="16" coveredconditionals="16" methods="6" coveredmethods="6"/>
       <file name="Button.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Button.jsx">
@@ -95,11 +95,11 @@
       </file>
       <file name="Footer.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/Footer.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="2" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
       </file>
       <file name="Header.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/Header.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="6" type="stmt"/>
+        <line num="5" count="18" type="stmt"/>
       </file>
       <file name="LoginForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/LoginForm.jsx">
         <metrics statements="23" coveredstatements="23" conditionals="14" coveredconditionals="14" methods="3" coveredmethods="3"/>
@@ -173,14 +173,14 @@
       </file>
     </package>
     <package name="templates">
-      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="AuthTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/AuthTemplate.jsx">
-        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="6" type="stmt"/>
       </file>
       <file name="HomePageTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/HomePageTemplate.jsx">
-        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="6" type="stmt"/>
       </file>
     </package>
   </project>
