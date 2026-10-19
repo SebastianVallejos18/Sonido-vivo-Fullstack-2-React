@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792381002716" clover="3.2.0">
-  <project timestamp="1792381002716" name="All files">
-    <metrics statements="109" coveredstatements="109" conditionals="78" coveredconditionals="78" methods="28" coveredmethods="28" elements="215" coveredelements="215" complexity="0" loc="109" ncloc="109" packages="4" files="20" classes="20"/>
-    <package name="atoms">
+<coverage generated="1792411775511" clover="3.2.0">
+  <project timestamp="1792411775511" name="All files">
+    <metrics statements="120" coveredstatements="120" conditionals="82" coveredconditionals="82" methods="32" coveredmethods="32" elements="234" coveredelements="234" complexity="0" loc="120" ncloc="120" packages="5" files="21" classes="21"/>
+    <package name="components.atoms">
       <metrics statements="16" coveredstatements="16" conditionals="16" coveredconditionals="16" methods="6" coveredmethods="6"/>
       <file name="Button.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Button.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
@@ -39,7 +39,7 @@
         <line num="4" count="22" type="stmt"/>
       </file>
     </package>
-    <package name="molecules">
+    <package name="components.molecules">
       <metrics statements="8" coveredstatements="8" conditionals="10" coveredconditionals="10" methods="5" coveredmethods="5"/>
       <file name="CategoryNav.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/molecules/CategoryNav.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -62,7 +62,7 @@
         <line num="13" count="18" type="stmt"/>
       </file>
     </package>
-    <package name="organisms">
+    <package name="components.organisms">
       <metrics statements="83" coveredstatements="83" conditionals="52" coveredconditionals="52" methods="15" coveredmethods="15"/>
       <file name="ContactForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/ContactForm.jsx">
         <metrics statements="26" coveredstatements="26" conditionals="19" coveredconditionals="19" methods="3" coveredmethods="3"/>
@@ -172,7 +172,7 @@
         <line num="80" count="409" type="stmt"/>
       </file>
     </package>
-    <package name="templates">
+    <package name="components.templates">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="AuthTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/AuthTemplate.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -181,6 +181,23 @@
       <file name="HomePageTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/HomePageTemplate.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <file name="precios.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/precios.js">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
       </file>
     </package>
   </project>
