@@ -11,4 +11,9 @@ describe('Label', () => {
     render(<Label htmlFor="correo" text="Correo electrónico" />)
     expect(screen.getByText('Correo electrónico')).toHaveAttribute('for', 'correo')
   })
+
+  it('tiene la clase form-label de Bootstrap', () => {
+    render(<Label htmlFor="correo" text="Correo electrónico" />)
+    expect(screen.getByText('Correo electrónico')).toHaveClass('form-label')
+  })
 })

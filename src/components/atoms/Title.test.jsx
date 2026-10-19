@@ -12,8 +12,13 @@ describe('Title', () => {
     expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument()
   })
 
+  it('usa h2 por defecto si no recibe level', () => {
+    render(<Title text="Sonido Vivo" />)
+    expect(screen.getByRole('heading', { level: 2, name: 'Sonido Vivo' })).toBeInTheDocument()
+  })
+
   it('aplica la clase recibida por props', () => {
-    render(<Title level="h3" text="Hola" className="text-center" />)
+    render(<Title text="Hola" className="text-center" />)
     expect(screen.getByText('Hola')).toHaveClass('text-center')
   })
 })
