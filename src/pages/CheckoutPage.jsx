@@ -5,7 +5,7 @@ import { obtenerCarrito, vaciarCarrito } from "../services/carritoService";
 import { crearPedido } from "../services/pedidosService";
 import { calcularTotal } from "../utils/precios";
 import OrderForm from "../components/organisms/OrderForm";
-import OrderSuccess from "../components/molecules/OrderSucces";
+import OrderSuccess from "../components/molecules/OrderSuccess";
 import OrderSummary from "../components/molecules/OrderSummary";
 
 function CheckoutPage() {

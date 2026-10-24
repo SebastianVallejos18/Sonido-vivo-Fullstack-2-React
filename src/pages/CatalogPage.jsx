@@ -13,6 +13,7 @@ function CatalogPage() {
           <CategoryNav categorias={categorias} />
           {categorias.map((categoria) => (
             <ProductSection
+              key={categoria.id}
               id={categoria.id}
               titulo={categoria.titulo}
               productos={categoria.productos}

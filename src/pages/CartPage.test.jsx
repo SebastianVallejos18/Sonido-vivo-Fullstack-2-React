@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import CartPage from './CartPage'
 import { agregarProducto, obtenerCarrito } from '../services/carritoService'
+
 
 const guitarra = {
   nombre: 'Guitarra Acústica Folk',
@@ -70,4 +71,22 @@ describe('CartPage', () => {
     expect(screen.getByRole('heading', { name: 'Tu carrito está vacío' })).toBeInTheDocument()
     expect(obtenerCarrito()).toEqual([])
   })
+
+  it('lleva a la confirmación al presionar Confirmar pedido', async () => {
+  const user = userEvent.setup()
+  agregarProducto(guitarra)
+
+  render(
+    <MemoryRouter initialEntries={['/carrito']}>
+      <Routes>
+        <Route path="/carrito" element={<CartPage />} />
+        <Route path="/confirmacion" element={<p>Pantalla de confirmación</p>} />
+      </Routes>
+    </MemoryRouter>
+  )
+
+  await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
+
+  expect(screen.getByText('Pantalla de confirmación')).toBeInTheDocument()
+})
 })
