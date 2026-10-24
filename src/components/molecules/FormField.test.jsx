@@ -129,4 +129,44 @@ describe('FormField', () => {
 
     expect(fakeChange).toHaveBeenCalledTimes(4)
   })
+
+    it('renderiza un select cuando type es "select"', () => {
+    render(<FormField id="rol" label="Rol" type="select" options={['Vendedor', 'Cliente']} />)
+
+    const campo = screen.getByLabelText('Rol')
+    expect(campo.tagName).toBe('SELECT')
+    expect(campo).toHaveAttribute('name', 'rol')
+  })
+
+  it('muestra las opciones y el placeholder del select', () => {
+    render(
+      <FormField
+        id="rol"
+        label="Rol"
+        type="select"
+        placeholder="Selecciona un rol"
+        options={['Vendedor', 'Cliente']}
+      />
+    )
+
+    expect(screen.getAllByRole('option')).toHaveLength(3)
+    expect(screen.getByRole('option', { name: 'Selecciona un rol' })).toBeInTheDocument()
+  })
+
+  it('marca el select como inválido y muestra el error', () => {
+    render(<FormField id="rol" label="Rol" type="select" options={['Cliente']} error="Selecciona un rol válido." />)
+
+    expect(screen.getByLabelText('Rol')).toHaveClass('is-invalid')
+    expect(screen.getByText('Selecciona un rol válido.')).toBeInTheDocument()
+  })
+
+  it('llama a onChange cuando se elige una opción del select', async () => {
+    const user = userEvent.setup()
+    const fakeChange = vi.fn()
+    render(<FormField id="rol" label="Rol" type="select" options={['Vendedor', 'Cliente']} onChange={fakeChange} />)
+
+    await user.selectOptions(screen.getByLabelText('Rol'), 'Vendedor')
+
+    expect(fakeChange).toHaveBeenCalledTimes(1)
+  })
 })

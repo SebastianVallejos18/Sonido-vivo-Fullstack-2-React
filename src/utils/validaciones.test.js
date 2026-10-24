@@ -1,4 +1,4 @@
-import { validarPedido } from './validaciones'
+import { validarPedido, validarUsuario } from './validaciones'
 
 const datosValidos = {
   nombre: 'Juan Pérez',
@@ -59,5 +59,39 @@ describe('validarPedido', () => {
   it('acumula varios errores a la vez', () => {
     const errores = validarPedido({ nombre: '', correo: '', telefono: '', metodo: 'despacho', direccion: '' })
     expect(Object.keys(errores)).toHaveLength(4)
+  })
+})
+
+describe('validarUsuario', () => {
+  const usuarioValido = { nombre: 'Camila Rojas', correo: 'camila@correo.com', rol: 'Cliente' }
+
+  it('devuelve un objeto vacío si los datos son válidos', () => {
+    expect(validarUsuario(usuarioValido)).toEqual({})
+  })
+
+  it('marca error si el nombre está vacío', () => {
+    const errores = validarUsuario({ ...usuarioValido, nombre: '  ' })
+    expect(errores.nombre).toBe('Por favor ingresa el nombre.')
+  })
+
+  it('marca error si el correo es inválido', () => {
+    const errores = validarUsuario({ ...usuarioValido, correo: 'correo-malo' })
+    expect(errores.correo).toMatch(/Ingresa un correo válido/)
+  })
+
+  it('marca error si el rol no existe', () => {
+    const errores = validarUsuario({ ...usuarioValido, rol: 'Superusuario' })
+    expect(errores.rol).toBe('Selecciona un rol válido.')
+  })
+
+  it('acepta los tres roles del sistema', () => {
+    for (const rol of ['Administrador', 'Vendedor', 'Cliente']) {
+      expect(validarUsuario({ ...usuarioValido, rol })).toEqual({})
+    }
+  })
+
+  it('acumula varios errores a la vez', () => {
+    const errores = validarUsuario({ nombre: '', correo: '', rol: '' })
+    expect(Object.keys(errores)).toHaveLength(3)
   })
 })
