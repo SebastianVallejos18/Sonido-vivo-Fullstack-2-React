@@ -66,4 +66,15 @@ describe('ProductSection', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Sin productos' })).toBeInTheDocument()
     expect(screen.queryAllByRole('heading', { level: 3 })).toHaveLength(0)
   })
+
+  it('llama a onAdd con el producto de la tarjeta donde se hizo clic', async () => {
+  const user = userEvent.setup()
+  const fakeAdd = vi.fn()
+  render(<ProductSection id="guitarras" titulo="Guitarras" productos={productos} onAdd={fakeAdd} />)
+
+  const botones = screen.getAllByRole('button', { name: 'Agregar al carrito' })
+  await user.click(botones[1])
+
+  expect(fakeAdd).toHaveBeenCalledWith(productos[1])
+})
 })

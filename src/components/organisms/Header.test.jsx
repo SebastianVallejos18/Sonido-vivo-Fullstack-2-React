@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Header from './Header'
+import { agregarProducto } from '../../services/carritoService'
 
 function renderHeader(ruta = '/') {
   return render(
@@ -9,6 +10,8 @@ function renderHeader(ruta = '/') {
     </MemoryRouter>
   )
 }
+
+const guitarra = { nombre: 'Guitarra Acústica Folk', imagen: '/guitarra.jpeg', precio: '$129.990' }
 
 describe('Header', () => {
   it('muestra el nombre de la tienda como enlace al inicio', () => {
@@ -44,5 +47,39 @@ describe('Header', () => {
   it('tiene el botón para desplegar el menú en pantallas pequeñas', () => {
     renderHeader()
     expect(screen.getByRole('button', { name: /toggle navigation/i })).toBeInTheDocument()
+  })
+})
+
+describe('Header (carrito)', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  it('tiene un enlace al carrito', () => {
+    renderHeader()
+    expect(screen.getByRole('link', { name: /Carrito/ })).toHaveAttribute('href', '/carrito')
+  })
+
+  it('no muestra el contador si el carrito está vacío', () => {
+    renderHeader()
+    expect(screen.queryByTestId('contador-carrito')).not.toBeInTheDocument()
+  })
+
+  it('muestra las unidades que ya estaban guardadas', () => {
+    agregarProducto(guitarra)
+    agregarProducto(guitarra)
+    renderHeader()
+
+    expect(screen.getByTestId('contador-carrito')).toHaveTextContent('2')
+  })
+
+  it('actualiza el contador cuando se agrega un producto', () => {
+    renderHeader()
+
+    act(() => {
+      agregarProducto(guitarra)
+    })
+
+    expect(screen.getByTestId('contador-carrito')).toHaveTextContent('1')
   })
 })

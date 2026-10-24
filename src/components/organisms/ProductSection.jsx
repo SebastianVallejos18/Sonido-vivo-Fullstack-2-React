@@ -1,6 +1,12 @@
 import ProductCard from "../molecules/ProductCard";
 
 function ProductSection(props) {
+  function handleAdd(producto) {
+    if (props.onAdd) {
+      props.onAdd(producto);
+    }
+  }
+
   return (
     <section id={props.id} className="mb-5">
       <h2 className="mb-4">{props.titulo}</h2>
@@ -14,6 +20,7 @@ function ProductSection(props) {
               price={producto.precio}
               description={producto.descripcion}
               showButton={true}
+              onAdd={() => handleAdd(producto)}
             />
           </div>
         ))}

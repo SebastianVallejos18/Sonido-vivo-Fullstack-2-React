@@ -161,4 +161,27 @@ describe('carritoService (CRUD con persistencia)', () => {
       expect(contarProductos()).toBe(3)
     })
   })
+
+  describe('aviso de cambios', () => {
+  it('avisa a la interfaz cuando se agrega un producto', () => {
+    const escucha = vi.fn()
+    window.addEventListener('carrito-actualizado', escucha)
+
+    agregarProducto(guitarra)
+
+    expect(escucha).toHaveBeenCalledTimes(1)
+    window.removeEventListener('carrito-actualizado', escucha)
+  })
+
+  it('avisa a la interfaz cuando se vacía el carrito', () => {
+    const escucha = vi.fn()
+    window.addEventListener('carrito-actualizado', escucha)
+
+    vaciarCarrito()
+
+    expect(escucha).toHaveBeenCalledTimes(1)
+    window.removeEventListener('carrito-actualizado', escucha)
+  })
 })
+})
+

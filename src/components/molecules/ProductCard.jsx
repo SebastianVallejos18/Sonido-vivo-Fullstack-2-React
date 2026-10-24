@@ -8,6 +8,9 @@ function ProductCard(props) {
 
     function handleAgregar() {
         setAgregado(true);
+        if (props.onAdd) {
+            props.onAdd();
+        }
     }
 
     return (

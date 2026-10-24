@@ -39,4 +39,14 @@ describe('ProductCard', () => {
 
     expect(screen.getByText('¡Producto agregado!')).toBeInTheDocument()
   })
+
+  it('llama a onAdd al hacer clic en el botón', async () => {
+  const user = userEvent.setup()
+  const fakeAdd = vi.fn()
+  render(<ProductCard text="Teclado" price="$200.000" description="Teclado de 61 teclas" showButton onAdd={fakeAdd} />)
+
+  await user.click(screen.getByRole('button', { name: 'Agregar al carrito' }))
+
+  expect(fakeAdd).toHaveBeenCalledTimes(1)
+})
 })

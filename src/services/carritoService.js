@@ -1,5 +1,10 @@
 const CLAVE = "carrito";
 
+function avisarCambio() {
+  window.dispatchEvent(new Event("carrito-actualizado"));
+}
+
+// GET
 export function obtenerCarrito() {
   const guardado = localStorage.getItem(CLAVE);
   if (!guardado) {
@@ -14,8 +19,10 @@ export function obtenerCarrito() {
 
 function guardarCarrito(carrito) {
   localStorage.setItem(CLAVE, JSON.stringify(carrito));
+  avisarCambio();
 }
 
+// POST
 export function agregarProducto(producto) {
   const carrito = obtenerCarrito();
   const existente = carrito.find((item) => item.nombre === producto.nombre);
@@ -35,6 +42,7 @@ export function agregarProducto(producto) {
   return carrito;
 }
 
+// UPDATE
 export function cambiarCantidad(nombre, cantidad) {
   if (!Number.isInteger(cantidad) || cantidad < 1) {
     throw new Error("La cantidad debe ser un entero de al menos 1");
@@ -52,6 +60,7 @@ export function cambiarCantidad(nombre, cantidad) {
   return carrito;
 }
 
+// DELETE
 export function quitarProducto(nombre) {
   const carrito = obtenerCarrito().filter((item) => item.nombre !== nombre);
   guardarCarrito(carrito);
@@ -60,6 +69,7 @@ export function quitarProducto(nombre) {
 
 export function vaciarCarrito() {
   localStorage.removeItem(CLAVE);
+  avisarCambio();
 }
 
 // Para mostrar el número en el Header
