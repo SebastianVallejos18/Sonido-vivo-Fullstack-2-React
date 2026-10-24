@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792861608370" clover="3.2.0">
-  <project timestamp="1792861608370" name="All files">
-    <metrics statements="179" coveredstatements="179" conditionals="100" coveredconditionals="100" methods="55" coveredmethods="55" elements="334" coveredelements="334" complexity="0" loc="179" ncloc="179" packages="6" files="25" classes="25"/>
+<coverage generated="1792864470691" clover="3.2.0">
+  <project timestamp="1792864470692" name="All files">
+    <metrics statements="208" coveredstatements="208" conditionals="120" coveredconditionals="120" methods="60" coveredmethods="60" elements="388" coveredelements="388" complexity="0" loc="208" ncloc="208" packages="6" files="27" classes="27"/>
     <package name="components.atoms">
       <metrics statements="16" coveredstatements="16" conditionals="16" coveredconditionals="16" methods="6" coveredmethods="6"/>
       <file name="Button.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Button.jsx">
@@ -217,7 +217,7 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="35" coveredstatements="35" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>
+      <metrics statements="51" coveredstatements="51" conditionals="20" coveredconditionals="20" methods="15" coveredmethods="15"/>
       <file name="carritoService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/carritoService.js">
         <metrics statements="35" coveredstatements="35" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>
         <line num="1" count="5" type="stmt"/>
@@ -256,22 +256,57 @@
         <line num="79" count="10" type="stmt"/>
         <line num="81" count="33" type="stmt"/>
       </file>
+      <file name="pedidosService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/pedidosService.js">
+        <metrics statements="16" coveredstatements="16" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
+        <line num="7" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="10" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="9" type="stmt"/>
+        <line num="27" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="10" type="stmt"/>
+        <line num="44" count="10" type="stmt"/>
+        <line num="45" count="10" type="stmt"/>
+        <line num="46" count="10" type="stmt"/>
+      </file>
     </package>
     <package name="utils">
-      <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <metrics statements="24" coveredstatements="24" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
       <file name="precios.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/precios.js">
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-        <line num="4" count="55" type="stmt"/>
-        <line num="5" count="55" type="stmt"/>
+        <line num="4" count="73" type="stmt"/>
+        <line num="5" count="73" type="stmt"/>
         <line num="9" count="52" type="stmt"/>
         <line num="10" count="52" type="stmt"/>
-        <line num="14" count="15" type="stmt"/>
-        <line num="15" count="15" type="stmt"/>
-        <line num="16" count="22" type="stmt"/>
-        <line num="18" count="15" type="stmt"/>
+        <line num="14" count="24" type="stmt"/>
+        <line num="15" count="24" type="stmt"/>
+        <line num="16" count="40" type="stmt"/>
+        <line num="18" count="24" type="stmt"/>
         <line num="22" count="5" type="cond" truecount="4" falsecount="0"/>
         <line num="23" count="2" type="stmt"/>
         <line num="25" count="3" type="stmt"/>
+      </file>
+      <file name="validaciones.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/validaciones.js">
+        <metrics statements="13" coveredstatements="13" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="12" type="stmt"/>
+        <line num="7" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="11" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="16" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="20" count="12" type="cond" truecount="4" falsecount="0"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="24" count="12" type="stmt"/>
       </file>
     </package>
   </project>

@@ -7,6 +7,7 @@ import CatalogPage from "./pages/CatalogPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import CartPage from "./pages/CartPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/contact" element={<ContactPage/>} />
         <Route path="/carrito" element={<CartPage />} />
+        <Route path="/confirmacion" element={<CheckoutPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </BrowserRouter>

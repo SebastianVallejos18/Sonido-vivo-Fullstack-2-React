@@ -2,6 +2,7 @@ import { useState } from "react";
 import HomePageTemplate from "../components/templates/HomePageTemplate";
 import CartList from "../components/organisms/CartList";
 import { obtenerCarrito, cambiarCantidad, quitarProducto } from "../services/carritoService";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const [items, setItems] = useState(obtenerCarrito);
@@ -22,8 +23,10 @@ function CartPage() {
     setItems(quitarProducto(nombre));
   }
 
-  function handleConfirm() { //TO DO
-  }
+  const navigate = useNavigate();
+  function handleConfirm() {
+  navigate("/confirmacion");
+}
 
   return (
     <HomePageTemplate
