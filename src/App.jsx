@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ContactPage from "./pages/ContactPage";
 import CatalogPage from "./pages/CatalogPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import CartPage from "./pages/CartPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/contact" element={<ContactPage/>} />
+        <Route path="/carrito" element={<CartPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </BrowserRouter>
