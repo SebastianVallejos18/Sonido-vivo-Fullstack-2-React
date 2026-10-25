@@ -48,6 +48,11 @@ describe('Header', () => {
     renderHeader()
     expect(screen.getByRole('button', { name: /toggle navigation/i })).toBeInTheDocument()
   })
+
+  it('tiene un enlace a las ofertas', () => {
+    renderHeader()
+    expect(screen.getByRole('link', { name: 'Ofertas' })).toHaveAttribute('href', '/ofertas')
+  })
 })
 
 describe('Header (carrito)', () => {

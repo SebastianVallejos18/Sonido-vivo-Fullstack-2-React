@@ -9,6 +9,8 @@ import CartPage from "./pages/CartPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CheckoutPage from "./pages/CheckoutPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
+import OffersPage from "./pages/OffersPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/contact" element={<ContactPage/>} />
         <Route path="/carrito" element={<CartPage />} />
         <Route path="/confirmacion" element={<CheckoutPage />} />
+        <Route path="/producto/:slug" element={<ProductDetailPage />} />
+        <Route path="/ofertas" element={<OffersPage />} />
         <Route path="/admin" element={<AdminUsersPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>

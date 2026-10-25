@@ -1,6 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render as renderBase, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import ProductSection from './ProductSection'
+
+function render(ui) {
+  return renderBase(<MemoryRouter>{ui}</MemoryRouter>)
+}
 
 const productos = [
   {

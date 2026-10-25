@@ -111,4 +111,21 @@ describe('filtros de búsqueda', () => {
 
     expect(obtenerCarrito()[0].nombre).toBe('Guitarra Eléctrica Stratocaster')
   })
+
+  it('muestra el precio con descuento en los productos en oferta y lo guarda en el carrito', async () => {
+    const user = userEvent.setup()
+    render(
+      <MemoryRouter>
+        <CatalogPage />
+      </MemoryRouter>
+    )
+
+    const tarjeta = screen.getByRole('heading', { level: 3, name: 'Guitarra Acústica Folk' }).closest('article')
+    expect(within(tarjeta).getByText('$103.992')).toBeInTheDocument()
+    expect(within(tarjeta).getByText('-20%')).toBeInTheDocument()
+
+    await user.click(within(tarjeta).getByRole('button', { name: 'Agregar al carrito' }))
+
+    expect(obtenerCarrito()[0].precio).toBe('$103.992')
+  })
 })

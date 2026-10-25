@@ -35,6 +35,9 @@ function Header() {
             <Nav.Link as={NavLink} to="/catalogo">
               Productos
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/ofertas">
+              Ofertas
+            </Nav.Link>
             <Nav.Link as={NavLink} to="/contact">
               Contacto
             </Nav.Link>

@@ -1,4 +1,5 @@
 import ProductCard from "../molecules/ProductCard";
+import { crearSlug } from "../../utils/productos";
 
 function ProductSection(props) {
   function handleAdd(producto) {
@@ -18,7 +19,10 @@ function ProductSection(props) {
               alt={producto.nombre}
               text={producto.nombre}
               price={producto.precio}
+              oldPrice={producto.precioOriginal}
+              discount={producto.descuento}
               description={producto.descripcion}
+              detailTo={"/producto/" + crearSlug(producto.nombre)}
               showButton={true}
               onAdd={() => handleAdd(producto)}
             />

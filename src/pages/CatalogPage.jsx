@@ -6,13 +6,15 @@ import categorias from "../data/productos";
 import HomePageTemplate from "../components/templates/HomePageTemplate";
 import { agregarProducto } from "../services/carritoService";
 import { filtrarCategorias } from "../utils/filtros";
+import { aplicarOfertas } from "../utils/ofertas";
 
 const FILTROS_VACIOS = { texto: "", categoria: "", precioMax: "" };
+const categoriasConOfertas = aplicarOfertas(categorias);
 
 function CatalogPage() {
   const [filtros, setFiltros] = useState(FILTROS_VACIOS);
 
-  const categoriasFiltradas = filtrarCategorias(categorias, filtros);
+  const categoriasFiltradas = filtrarCategorias(categoriasConOfertas, filtros);
   const titulos = categorias.map((categoria) => categoria.titulo);
 
   let totalProductos = 0;

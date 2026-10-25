@@ -3,7 +3,7 @@ const categorias = [
     id: "guitarras-acusticas",
     titulo: "Guitarras Acústicas",
     productos: [
-      { nombre: "Guitarra Acústica Folk", imagen: "/guitarra.jpeg", precio: "$129.990", descripcion: "Tapa de abeto, aros y fondo de meranti. Ideal para iniciantes." },
+      { nombre: "Guitarra Acústica Folk", imagen: "/guitarra.jpeg", precio: "$129.990", descripcion: "Tapa de abeto, aros y fondo de meranti. Ideal para iniciantes.", descuento: 20 },
       { nombre: "Guitarra Acústica Dreadnought", imagen: "/guitarra.jpeg", precio: "$189.990", descripcion: "Tapa de abeto macizo, brazo de caoba. Sonido cálido y proyectado." },
       { nombre: "Guitarra Acústica Clásica 4/4", imagen: "/guitarra.jpeg", precio: "$89.990", descripcion: "Nailon, tapa de abeto. Ideal para estudio y flamenco." },
       { nombre: "Guitarra Electroacústica", imagen: "/guitarra.jpeg", precio: "$349.990", descripcion: "Pickup integrado, afinador incorporado." },
@@ -14,7 +14,7 @@ const categorias = [
     id: "guitarras-electricas",
     titulo: "Guitarras Eléctricas",
     productos: [
-      { nombre: "Guitarra Eléctrica Stratocaster", imagen: "/guitarra.jpeg", precio: "$249.990", descripcion: "Cuerpo de álamo, mástil de arce, pastillas SSS." },
+      { nombre: "Guitarra Eléctrica Stratocaster", imagen: "/guitarra.jpeg", precio: "$249.990", descripcion: "Cuerpo de álamo, mástil de arce, pastillas SSS.", descuento: 10 },
       { nombre: "Guitarra Eléctrica Les Paul", imagen: "/guitarra.jpeg", precio: "$329.990", descripcion: "Cuerpo caoba, tapa arce, pastillas humbucker." },
       { nombre: "Guitarra Eléctrica SG", imagen: "/guitarra.jpeg", precio: "$319.990", descripcion: "Cuerpo caoba, mástil caoba, 2 humbuckers." },
       { nombre: "Guitarra Eléctrica Telecaster", imagen: "/guitarra.jpeg", precio: "$239.990", descripcion: "Cuerpo álamo, clavijero vintage, 2 pastillas single." },
@@ -35,7 +35,7 @@ const categorias = [
     titulo: "Baterías",
     productos: [
       { nombre: "Batería Acústica 5 piezas", imagen: "/bateria.jpeg", precio: "$599.990", descripcion: "Incluye stands, platillos y pedal de bombo." },
-      { nombre: "Batería Electrónica 8 pads", imagen: "/bateria.jpeg", precio: "$799.990", descripcion: "Módulo TD-02, 8 pads de goma, pedal hi-hat." },
+      { nombre: "Batería Electrónica 8 pads", imagen: "/bateria.jpeg", precio: "$799.990", descripcion: "Módulo TD-02, 8 pads de goma, pedal hi-hat.", descuento: 30 },
       { nombre: "Caja Snare 14", imagen: "/bateria.jpeg", precio: "$89.990", descripcion: "Acero, 14x5, 10 tensores." },
       { nombre: "Platillo Hi-Hat 14", imagen: "/bateria.jpeg", precio: "$149.990", descripcion: "Latón B20, sonido brillante y claro." },
       { nombre: "Platillo Crash 16", imagen: "/bateria.jpeg", precio: "$129.990", descripcion: "Latón B20, ataque rápido." },
@@ -45,7 +45,7 @@ const categorias = [
     id: "teclados-y-pianos",
     titulo: "Teclados y Pianos",
     productos: [
-      { nombre: "Teclado Digital 61 teclas", imagen: "/teclado.jpeg", precio: "$249.990", descripcion: "61 teclas sensibles al tacto, 622 voces." },
+      { nombre: "Teclado Digital 61 teclas", imagen: "/teclado.jpeg", precio: "$249.990", descripcion: "61 teclas sensibles al tacto, 622 voces.", descuento: 20 },
       { nombre: "Piano Digital 88 teclas", imagen: "/teclado.jpeg", precio: "$499.990", descripcion: "88 teclas pesadas, 10 voces, pedal sustain incluido." },
       { nombre: "Sintetizador 49 teclas", imagen: "/teclado.jpeg", precio: "$129.990", descripcion: "MIDI controller, 49 mini teclas." },
       { nombre: "Teclado MIDI 88 teclas", imagen: "/teclado.jpeg", precio: "$399.990", descripcion: "88 teclas martillo, sin sonidos propios." },
@@ -67,7 +67,7 @@ const categorias = [
     productos: [
       { nombre: "Micrófono Dinámico Cardioide", imagen: "/microfono.jpeg", precio: "$149.990", descripcion: "Estándar industria para voz en vivo." },
       { nombre: "Micrófono Dinámico Instrumento", imagen: "/microfono.jpeg", precio: "$139.990", descripcion: "Ideal para captura de instrumentos y amplificadores." },
-      { nombre: "Micrófono Condensador", imagen: "/microfono.jpeg", precio: "$199.990", descripcion: "Cardioide, XLR, ideal para grabación en estudio." },
+      { nombre: "Micrófono Condensador", imagen: "/microfono.jpeg", precio: "$199.990", descripcion: "Cardioide, XLR, ideal para grabación en estudio.", descuento: 10},
       { nombre: "Micrófono USB de Condensador", imagen: "/microfono.jpeg", precio: "$299.990", descripcion: "USB, 4 patrones polares, ideal para streaming y podcast." },
     ],
   },
@@ -80,7 +80,7 @@ const categorias = [
       { nombre: "Pedal Multi-efectos", imagen: "/amplificador.jpeg", precio: "$349.990", descripcion: "Diseño tipo pedalboard, 8 efectos simultáneos." },
       { nombre: "Pedal Tuner Cromático", imagen: "/amplificador.jpeg", precio: "$89.990", descripcion: "Afinador cromático, indicador de tono." },
       { nombre: "Pedal Delay", imagen: "/amplificador.jpeg", precio: "$179.990", descripcion: "Delay analógico cálido, tiempo 600ms." },
-      { nombre: "Pedal Overdrive", imagen: "/amplificador.jpeg", precio: "$99.990", descripcion: "Tube Screamer clásico, sonido suave y orgánico." },
+      { nombre: "Pedal Overdrive", imagen: "/amplificador.jpeg", precio: "$99.990", descripcion: "Tube Screamer clásico, sonido suave y orgánico.", descuento: 30 },
     ],
   },
   {
