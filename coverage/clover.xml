@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792889836537" clover="3.2.0">
-  <project timestamp="1792889836537" name="All files">
-    <metrics statements="345" coveredstatements="345" conditionals="233" coveredconditionals="233" methods="114" coveredmethods="114" elements="692" coveredelements="692" complexity="0" loc="345" ncloc="345" packages="6" files="39" classes="39"/>
-    <package name="components.atoms">
+<coverage generated="1792976361478" clover="3.2.0">
+  <project timestamp="1792976361479" name="All files">
+    <metrics statements="424" coveredstatements="424" conditionals="255" coveredconditionals="255" methods="141" coveredmethods="141" elements="820" coveredelements="820" complexity="0" loc="424" ncloc="424" packages="8" files="51" classes="51"/>
+    <package name="src">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="App.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/App.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="16" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.atoms">
       <metrics statements="19" coveredstatements="19" conditionals="22" coveredconditionals="22" methods="8" coveredmethods="8"/>
       <file name="Button.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Button.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="2" count="1228" type="cond" truecount="2" falsecount="0"/>
-        <line num="3" count="1228" type="cond" truecount="2" falsecount="0"/>
-        <line num="5" count="1228" type="stmt"/>
+        <line num="2" count="1231" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="1231" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="1231" type="stmt"/>
       </file>
       <file name="Image.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Image.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="834" type="stmt"/>
+        <line num="3" count="846" type="stmt"/>
       </file>
       <file name="Input.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Input.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
-        <line num="2" count="3074" type="cond" truecount="2" falsecount="0"/>
-        <line num="4" count="3074" type="stmt"/>
-        <line num="8" count="3074" type="stmt"/>
+        <line num="2" count="3081" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="3081" type="stmt"/>
+        <line num="8" count="3081" type="stmt"/>
       </file>
       <file name="Label.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Label.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="3526" type="stmt"/>
+        <line num="2" count="3534" type="stmt"/>
       </file>
       <file name="Select.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Select.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
@@ -32,20 +39,20 @@
       </file>
       <file name="TextArea.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/TextArea.jsx">
         <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="2" count="252" type="stmt"/>
-        <line num="4" count="252" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="253" type="stmt"/>
+        <line num="4" count="253" type="cond" truecount="2" falsecount="0"/>
         <line num="5" count="6" type="stmt"/>
-        <line num="6" count="246" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="247" type="cond" truecount="2" falsecount="0"/>
         <line num="7" count="5" type="stmt"/>
-        <line num="10" count="252" type="stmt"/>
+        <line num="10" count="253" type="stmt"/>
       </file>
       <file name="Title.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/atoms/Title.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="2" count="836" type="cond" truecount="2" falsecount="0"/>
-        <line num="4" count="836" type="stmt"/>
+        <line num="2" count="848" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="848" type="stmt"/>
       </file>
     </package>
-    <package name="components.molecules">
+    <package name="src.components.molecules">
       <metrics statements="22" coveredstatements="22" conditionals="20" coveredconditionals="20" methods="10" coveredmethods="10"/>
       <file name="CartItem.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/molecules/CartItem.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -63,14 +70,14 @@
       </file>
       <file name="FormField.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/molecules/FormField.jsx">
         <metrics statements="8" coveredstatements="8" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
-        <line num="7" count="3523" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="3523" type="stmt"/>
-        <line num="12" count="3523" type="cond" truecount="2" falsecount="0"/>
-        <line num="13" count="244" type="stmt"/>
-        <line num="24" count="3279" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="3531" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="3531" type="stmt"/>
+        <line num="12" count="3531" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="245" type="stmt"/>
+        <line num="24" count="3286" type="cond" truecount="2" falsecount="0"/>
         <line num="25" count="215" type="stmt"/>
-        <line num="38" count="3064" type="stmt"/>
-        <line num="53" count="3523" type="stmt"/>
+        <line num="38" count="3071" type="stmt"/>
+        <line num="53" count="3531" type="stmt"/>
       </file>
       <file name="OrderSuccess.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/molecules/OrderSuccess.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
@@ -87,14 +94,14 @@
       </file>
       <file name="ProductCard.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/molecules/ProductCard.jsx">
         <metrics statements="5" coveredstatements="5" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
-        <line num="8" count="784" type="stmt"/>
+        <line num="8" count="796" type="stmt"/>
         <line num="11" count="8" type="stmt"/>
         <line num="12" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="13" count="7" type="stmt"/>
-        <line num="17" count="784" type="stmt"/>
+        <line num="17" count="796" type="stmt"/>
       </file>
     </package>
-    <package name="components.organisms">
+    <package name="src.components.organisms">
       <metrics statements="137" coveredstatements="137" conditionals="102" coveredconditionals="102" methods="40" coveredmethods="40"/>
       <file name="CartList.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/CartList.jsx">
         <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="5"/>
@@ -111,11 +118,11 @@
       </file>
       <file name="ContactForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/ContactForm.jsx">
         <metrics statements="26" coveredstatements="26" conditionals="19" coveredconditionals="19" methods="3" coveredmethods="3"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="9" count="239" type="stmt"/>
-        <line num="15" count="239" type="stmt"/>
-        <line num="21" count="239" type="stmt"/>
-        <line num="27" count="239" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="9" count="240" type="stmt"/>
+        <line num="15" count="240" type="stmt"/>
+        <line num="21" count="240" type="stmt"/>
+        <line num="27" count="240" type="stmt"/>
         <line num="30" count="224" type="stmt"/>
         <line num="31" count="224" type="stmt"/>
         <line num="33" count="224" type="stmt"/>
@@ -136,29 +143,29 @@
         <line num="64" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="65" count="2" type="stmt"/>
         <line num="70" count="4" type="stmt"/>
-        <line num="77" count="239" type="stmt"/>
+        <line num="77" count="240" type="stmt"/>
       </file>
       <file name="Footer.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/Footer.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="101" type="stmt"/>
+        <line num="2" count="108" type="stmt"/>
       </file>
       <file name="Header.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/Header.jsx">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
-        <line num="7" count="117" type="stmt"/>
-        <line num="9" count="117" type="stmt"/>
+        <line num="7" count="124" type="stmt"/>
+        <line num="9" count="124" type="stmt"/>
         <line num="11" count="11" type="stmt"/>
-        <line num="14" count="59" type="stmt"/>
-        <line num="16" count="59" type="stmt"/>
-        <line num="17" count="59" type="stmt"/>
-        <line num="21" count="117" type="stmt"/>
+        <line num="14" count="66" type="stmt"/>
+        <line num="16" count="66" type="stmt"/>
+        <line num="17" count="66" type="stmt"/>
+        <line num="21" count="124" type="stmt"/>
       </file>
       <file name="LoginForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/LoginForm.jsx">
         <metrics statements="23" coveredstatements="23" conditionals="14" coveredconditionals="14" methods="3" coveredmethods="3"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="47" type="stmt"/>
-        <line num="15" count="47" type="stmt"/>
-        <line num="20" count="47" type="stmt"/>
-        <line num="25" count="47" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="48" type="stmt"/>
+        <line num="15" count="48" type="stmt"/>
+        <line num="20" count="48" type="stmt"/>
+        <line num="25" count="48" type="stmt"/>
         <line num="28" count="39" type="stmt"/>
         <line num="29" count="39" type="stmt"/>
         <line num="31" count="39" type="stmt"/>
@@ -176,11 +183,11 @@
         <line num="57" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="58" count="1" type="stmt"/>
         <line num="63" count="2" type="stmt"/>
-        <line num="70" count="47" type="stmt"/>
+        <line num="70" count="48" type="stmt"/>
       </file>
       <file name="NotFoundMessage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/NotFoundMessage.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
       </file>
       <file name="OrderForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/OrderForm.jsx">
         <metrics statements="11" coveredstatements="11" conditionals="12" coveredconditionals="12" methods="3" coveredmethods="3"/>
@@ -220,16 +227,16 @@
       </file>
       <file name="ProductVideo.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/ProductVideo.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="4" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
       </file>
       <file name="RegisterForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/RegisterForm.jsx">
         <metrics statements="28" coveredstatements="28" conditionals="19" coveredconditionals="19" methods="3" coveredmethods="3"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="11" count="409" type="stmt"/>
-        <line num="17" count="409" type="stmt"/>
-        <line num="23" count="409" type="stmt"/>
-        <line num="29" count="409" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="11" count="410" type="stmt"/>
+        <line num="17" count="410" type="stmt"/>
+        <line num="23" count="410" type="stmt"/>
+        <line num="29" count="410" type="stmt"/>
         <line num="32" count="381" type="stmt"/>
         <line num="33" count="381" type="stmt"/>
         <line num="35" count="381" type="stmt"/>
@@ -251,7 +258,7 @@
         <line num="67" count="12" type="cond" truecount="2" falsecount="0"/>
         <line num="68" count="5" type="stmt"/>
         <line num="73" count="7" type="stmt"/>
-        <line num="80" count="409" type="stmt"/>
+        <line num="80" count="410" type="stmt"/>
       </file>
       <file name="UserForm.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/organisms/UserForm.jsx">
         <metrics statements="10" coveredstatements="10" conditionals="14" coveredconditionals="14" methods="3" coveredmethods="3"/>
@@ -276,26 +283,140 @@
         <line num="51" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="components.templates">
+    <package name="src.components.templates">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="AuthTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/AuthTemplate.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="6" type="stmt"/>
+        <line num="5" count="10" type="stmt"/>
       </file>
       <file name="HomePageTemplate.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/components/templates/HomePageTemplate.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="93" type="stmt"/>
+        <line num="6" count="96" type="stmt"/>
       </file>
     </package>
-    <package name="services">
+    <package name="src.pages">
+      <metrics statements="78" coveredstatements="78" conditionals="22" coveredconditionals="22" methods="26" coveredmethods="26"/>
+      <file name="AdminUsersPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/AdminUsersPage.jsx">
+        <metrics statements="34" coveredstatements="34" conditionals="10" coveredconditionals="10" methods="5" coveredmethods="5"/>
+        <line num="14" count="16" type="stmt"/>
+        <line num="15" count="16" type="stmt"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="17" count="16" type="stmt"/>
+        <line num="18" count="16" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="69" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="16" type="stmt"/>
+      </file>
+      <file name="CartPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/CartPage.jsx">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="9" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="31" count="9" type="stmt"/>
+      </file>
+      <file name="CatalogPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/CatalogPage.jsx">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="47" type="stmt"/>
+        <line num="17" count="47" type="stmt"/>
+        <line num="18" count="470" type="stmt"/>
+        <line num="20" count="47" type="stmt"/>
+        <line num="21" count="47" type="stmt"/>
+        <line num="22" count="190" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="29" count="47" type="stmt"/>
+        <line num="54" count="190" type="stmt"/>
+      </file>
+      <file name="CheckoutPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/CheckoutPage.jsx">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="23" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="53" count="5" type="stmt"/>
+      </file>
+      <file name="ContactPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/ContactPage.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+      <file name="HomePage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/HomePage.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="3" type="stmt"/>
+      </file>
+      <file name="LoginPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/LoginPage.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+      <file name="NotFoundPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/NotFoundPage.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+      <file name="OffersPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/OffersPage.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+      </file>
+      <file name="ProductDetailPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/ProductDetailPage.jsx">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="15" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
+      </file>
+      <file name="RegisterPage.jsx" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/pages/RegisterPage.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.services">
       <metrics statements="108" coveredstatements="108" conditionals="50" coveredconditionals="50" methods="34" coveredmethods="34"/>
       <file name="carritoService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/carritoService.js">
         <metrics statements="35" coveredstatements="35" conditionals="10" coveredconditionals="10" methods="11" coveredmethods="11"/>
-        <line num="1" count="11" type="stmt"/>
+        <line num="1" count="17" type="stmt"/>
         <line num="4" count="50" type="stmt"/>
-        <line num="9" count="147" type="stmt"/>
-        <line num="10" count="147" type="cond" truecount="2" falsecount="0"/>
-        <line num="11" count="89" type="stmt"/>
+        <line num="9" count="154" type="stmt"/>
+        <line num="10" count="154" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="96" type="stmt"/>
         <line num="13" count="58" type="stmt"/>
         <line num="14" count="58" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
@@ -322,14 +443,14 @@
         <line num="67" count="3" type="stmt"/>
         <line num="71" count="3" type="stmt"/>
         <line num="72" count="3" type="stmt"/>
-        <line num="77" count="72" type="stmt"/>
-        <line num="78" count="72" type="stmt"/>
+        <line num="77" count="79" type="stmt"/>
+        <line num="78" count="79" type="stmt"/>
         <line num="79" count="20" type="stmt"/>
-        <line num="81" count="72" type="stmt"/>
+        <line num="81" count="79" type="stmt"/>
       </file>
       <file name="pedidosService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/pedidosService.js">
         <metrics statements="16" coveredstatements="16" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
-        <line num="3" count="2" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
         <line num="6" count="17" type="stmt"/>
         <line num="7" count="17" type="cond" truecount="2" falsecount="0"/>
         <line num="8" count="12" type="stmt"/>
@@ -348,8 +469,8 @@
       </file>
       <file name="usuariosService.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/services/usuariosService.js">
         <metrics statements="57" coveredstatements="57" conditionals="30" coveredconditionals="30" methods="19" coveredmethods="19"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
         <line num="13" count="16" type="stmt"/>
         <line num="17" count="14" type="stmt"/>
         <line num="18" count="14" type="stmt"/>
@@ -407,7 +528,7 @@
         <line num="136" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="utils">
+    <package name="src.utils">
       <metrics statements="57" coveredstatements="57" conditionals="39" coveredconditionals="39" methods="20" coveredmethods="20"/>
       <file name="filtros.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/filtros.js">
         <metrics statements="11" coveredstatements="11" conditionals="15" coveredconditionals="15" methods="6" coveredmethods="6"/>
@@ -425,28 +546,28 @@
       </file>
       <file name="ofertas.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/ofertas.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
-        <line num="6" count="113" type="stmt"/>
-        <line num="9" count="529" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="457" type="stmt"/>
-        <line num="13" count="72" type="stmt"/>
-        <line num="18" count="72" type="stmt"/>
+        <line num="6" count="123" type="stmt"/>
+        <line num="9" count="580" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="502" type="stmt"/>
+        <line num="13" count="78" type="stmt"/>
+        <line num="18" count="78" type="stmt"/>
         <line num="29" count="8" type="stmt"/>
         <line num="30" count="46" type="stmt"/>
         <line num="31" count="212" type="stmt"/>
       </file>
       <file name="precios.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/precios.js">
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-        <line num="4" count="382" type="stmt"/>
-        <line num="5" count="382" type="stmt"/>
-        <line num="9" count="150" type="stmt"/>
-        <line num="10" count="150" type="stmt"/>
+        <line num="4" count="388" type="stmt"/>
+        <line num="5" count="388" type="stmt"/>
+        <line num="9" count="156" type="stmt"/>
+        <line num="10" count="156" type="stmt"/>
         <line num="14" count="29" type="stmt"/>
         <line num="15" count="29" type="stmt"/>
         <line num="16" count="45" type="stmt"/>
         <line num="18" count="29" type="stmt"/>
-        <line num="22" count="77" type="cond" truecount="4" falsecount="0"/>
+        <line num="22" count="83" type="cond" truecount="4" falsecount="0"/>
         <line num="23" count="2" type="stmt"/>
-        <line num="25" count="75" type="stmt"/>
+        <line num="25" count="81" type="stmt"/>
       </file>
       <file name="productos.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/productos.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
@@ -459,8 +580,8 @@
       </file>
       <file name="validaciones.js" path="/home/ubuntu/proyecto-semestral/sonido-vivo/src/utils/validaciones.js">
         <metrics statements="21" coveredstatements="21" conditionals="16" coveredconditionals="16" methods="2" coveredmethods="2"/>
-        <line num="3" count="6" type="stmt"/>
-        <line num="4" count="6" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
         <line num="7" count="19" type="stmt"/>
         <line num="9" count="19" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="4" type="stmt"/>
