@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Pruebas y entorno
+coverage
+.env
+.env.*
