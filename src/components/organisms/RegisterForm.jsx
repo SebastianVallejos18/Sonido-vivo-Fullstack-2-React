@@ -3,77 +3,57 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
+import { registrarUsuario, obtenerMensajeError } from "../../services/authService";
 
 const patronCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const patronTelefono = /^(\+?56)?9\d{8}$/;
+const FORMULARIO_VACIO = { nombreUsuario: "", correo: "", password: "" };
 
 function RegisterForm() {
-  const [formData, setFormData] = useState({
-    nombreUsuario: "",
-    correo: "",
-    telefono: "",
-  });
-
-  const [errors, setErrors] = useState({
-    nombreUsuario: "",
-    correo: "",
-    telefono: "",
-  });
-
-  const [touched, setTouched] = useState({
-    nombreUsuario: false,
-    correo: false,
-    telefono: false,
-  });
-
+  const [formData, setFormData] = useState(FORMULARIO_VACIO);
+  const [errors, setErrors] = useState(FORMULARIO_VACIO);
+  const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
 
   function handleChange(e) {
-    const nombre = e.target.name;
-    const valor = e.target.value;
-
-    setFormData({
-      ...formData,
-      [nombre]: valor,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (cargando) return;
 
-    let esValido = true;
-    const nuevosErrores = { nombreUsuario: "", correo: "", telefono: "" };
-    const telefonoLimpio = formData.telefono.trim().replaceAll(" ", "");
-
-    setTouched({ nombreUsuario: true, correo: true, telefono: true });
-
+    const nuevosErrores = { ...FORMULARIO_VACIO };
     if (formData.nombreUsuario.trim() === "") {
       nuevosErrores.nombreUsuario = "Por favor ingresa tu nombre de usuario.";
-      esValido = false;
     }
-
     if (!patronCorreo.test(formData.correo.trim())) {
       nuevosErrores.correo = "Ingresa un correo válido, ej: nombre@dominio.com";
-      esValido = false;
     }
-
-    if (!patronTelefono.test(telefonoLimpio)) {
-      nuevosErrores.telefono = "Ingresa un número chileno válido, ej: +56912345678";
-      esValido = false;
+    if (formData.password.length < 8) {
+      nuevosErrores.password = "La contraseña debe tener al menos 8 caracteres.";
     }
-
     setErrors(nuevosErrores);
 
-    if (esValido) {
-      setMensaje({
-        texto: "¡Formulario enviado correctamente!",
-        tipo: "success",
+    if (nuevosErrores.nombreUsuario || nuevosErrores.correo || nuevosErrores.password) {
+      setMensaje({ texto: "Por favor, corrige los campos marcados en rojo.", tipo: "danger" });
+      return;
+    }
+
+    setCargando(true);
+    setMensaje({ texto: "", tipo: "" });
+    try {
+      // DTO de entrada: nombreUsuario del formulario es "nombre" para la API.
+      await registrarUsuario({
+        nombre: formData.nombreUsuario,
+        correo: formData.correo,
+        password: formData.password,
       });
-    } else {
-      setMensaje({
-        texto: "Por favor, corrige los campos marcados en rojo.",
-        tipo: "danger",
-      });
+      setMensaje({ texto: "¡Cuenta creada! Ya puedes iniciar sesión.", tipo: "success" });
+      setFormData(FORMULARIO_VACIO);
+    } catch (error) {
+      setMensaje({ texto: obtenerMensajeError(error), tipo: "danger" });
+    } finally {
+      setCargando(false);
     }
   }
 
@@ -93,11 +73,6 @@ function RegisterForm() {
                 onChange={handleChange}
                 autoComplete="username"
                 error={errors.nombreUsuario}
-                isVerified={
-                  touched.nombreUsuario &&
-                  !errors.nombreUsuario &&
-                  formData.nombreUsuario.trim() !== ""
-                }
               />
 
               <FormField
@@ -109,46 +84,41 @@ function RegisterForm() {
                 onChange={handleChange}
                 autoComplete="email"
                 error={errors.correo}
-                isVerified={
-                  touched.correo &&
-                  !errors.correo &&
-                  patronCorreo.test(formData.correo.trim())
-                }
               />
 
               <FormField
-                id="telefono"
-                label="Número de teléfono"
-                type="tel"
-                placeholder="+56912345678"
-                value={formData.telefono}
+                id="password"
+                label="Contraseña"
+                type="password"
+                placeholder="Mínimo 8 caracteres"
+                value={formData.password}
                 onChange={handleChange}
-                autoComplete="tel"
-                error={errors.telefono}
-                isVerified={
-                  touched.telefono &&
-                  !errors.telefono &&
-                  patronTelefono.test(formData.telefono.trim().replaceAll(" ", ""))
-                }
+                autoComplete="new-password"
+                error={errors.password}
               />
 
               <div className="d-grid gap-2 mb-3">
-                <Button type="submit" variant="primary" text="Registrar" />
+                <Button
+                  type="submit"
+                  variant="primary"
+                  text={cargando ? "Registrando..." : "Registrar"}
+                  disabled={cargando}
+                />
               </div>
 
               {mensaje.texto ? (
-                <div className={`alert alert-${mensaje.tipo} mt-3`} role="alert">
+                <div className={"alert alert-" + mensaje.tipo + " mt-3"} role="alert">
                   {mensaje.texto}
                 </div>
               ) : null}
             </Form>
 
-              <p className="text-center mt-3 mb-0">
-                ¿Ya tienes una cuenta?{" "}
-                <Link to="/login" className="text-decoration-none">
-                  Inicia sesión aquí
-                </Link>
-              </p>
+            <p className="text-center mt-3 mb-0">
+              ¿Ya tienes una cuenta?{" "}
+              <Link to="/login" className="text-decoration-none">
+                Inicia sesión aquí
+              </Link>
+            </p>
           </div>
         </Col>
       </Row>

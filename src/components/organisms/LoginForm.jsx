@@ -1,69 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
+import { iniciarSesion, obtenerMensajeError } from "../../services/authService";
 
 const patronCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function LoginForm() {
-  const [formData, setFormData] = useState({
-    nombreUsuario: "",
-    correo: "",
-  });
-
-  const [errors, setErrors] = useState({
-    nombreUsuario: "",
-    correo: "",
-  });
-
-  const [touched, setTouched] = useState({
-    nombreUsuario: false,
-    correo: false,
-  });
-
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ correo: "", password: "" });
+  const [errors, setErrors] = useState({ correo: "", password: "" });
+  const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState({ texto: "", tipo: "" });
 
   function handleChange(e) {
-    const nombre = e.target.name;
-    const valor = e.target.value;
-
-    setFormData({
-      ...formData,
-      [nombre]: valor,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (cargando) return;
 
-    let esValido = true;
-    const nuevosErrores = { nombreUsuario: "", correo: "" };
-
-    setTouched({ nombreUsuario: true, correo: true });
-
-    if (formData.nombreUsuario.trim() === "") {
-      nuevosErrores.nombreUsuario = "El nombre de usuario no puede estar vacio";
-      esValido = false;
-    }
-
+    const nuevosErrores = { correo: "", password: "" };
     if (!patronCorreo.test(formData.correo.trim())) {
       nuevosErrores.correo = "Ingresa un correo valido, ej: nombre@dominio.com";
-      esValido = false;
     }
-
+    if (formData.password === "") {
+      nuevosErrores.password = "La contraseña no puede estar vacia";
+    }
     setErrors(nuevosErrores);
 
-    if (esValido) {
-      setMensaje({
-        texto: "¡Formulario enviado correctamente!",
-        tipo: "success",
-      });
-    } else {
-      setMensaje({
-        texto: "Por favor, corrige los campos marcados en rojo.",
-        tipo: "danger",
-      });
+    if (nuevosErrores.correo || nuevosErrores.password) {
+      setMensaje({ texto: "Por favor, corrige los campos marcados en rojo.", tipo: "danger" });
+      return;
+    }
+
+    setCargando(true);
+    setMensaje({ texto: "", tipo: "" });
+    try {
+      const datos = await iniciarSesion(formData);
+      setMensaje({ texto: "¡Bienvenido, " + datos.usuario.nombre + "!", tipo: "success" });
+      navigate("/");
+    } catch (error) {
+      setMensaje({ texto: obtenerMensajeError(error), tipo: "danger" });
+    } finally {
+      setCargando(false);
     }
   }
 
@@ -76,21 +58,6 @@ function LoginForm() {
 
             <Form onSubmit={handleSubmit} noValidate>
               <FormField
-                id="nombreUsuario"
-                label="Nombre de usuario"
-                placeholder="Pepito Perez"
-                value={formData.nombreUsuario}
-                onChange={handleChange}
-                autoComplete="username"
-                error={errors.nombreUsuario}
-                isVerified={
-                  touched.nombreUsuario &&
-                  !errors.nombreUsuario &&
-                  formData.nombreUsuario.trim() !== ""
-                }
-              />
-
-              <FormField
                 id="correo"
                 label="Correo electrónico"
                 type="email"
@@ -99,29 +66,40 @@ function LoginForm() {
                 onChange={handleChange}
                 autoComplete="email"
                 error={errors.correo}
-                isVerified={
-                  touched.correo &&
-                  !errors.correo &&
-                  patronCorreo.test(formData.correo.trim())
-                }
+              />
+
+              <FormField
+                id="password"
+                label="Contraseña"
+                type="password"
+                placeholder="Tu contraseña"
+                value={formData.password}
+                onChange={handleChange}
+                autoComplete="current-password"
+                error={errors.password}
               />
 
               <div className="d-grid gap-2 mb-3">
-                <Button type="submit" variant="primary" text="Iniciar sesión" />
+                <Button
+                  type="submit"
+                  variant="primary"
+                  text={cargando ? "Ingresando..." : "Iniciar sesión"}
+                  disabled={cargando}
+                />
               </div>
 
               {mensaje.texto ? (
-                <div className={`alert alert-${mensaje.tipo} mt-3`} role="alert">
+                <div className={"alert alert-" + mensaje.tipo + " mt-3"} role="alert">
                   {mensaje.texto}
                 </div>
               ) : null}
             </Form>
 
-              <p className="text-center mt-3 mb-0">
-                ¿Aún no tienes una cuenta?{" "}
-                <Link to="/register" className="text-decoration-none">
-                  ¡Registrate aqui!
-                </Link>
+            <p className="text-center mt-3 mb-0">
+              ¿Aún no tienes una cuenta?{" "}
+              <Link to="/register" className="text-decoration-none">
+                ¡Registrate aqui!
+              </Link>
             </p>
           </div>
         </Col>

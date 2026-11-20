@@ -26,4 +26,4 @@ dist-ssr
 # Pruebas y entorno
 coverage
 .env
-.env.*
+.env.*!.env.example
