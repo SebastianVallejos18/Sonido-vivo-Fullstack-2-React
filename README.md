@@ -4,7 +4,6 @@ Desarrollo Full Stack II (DSY-1104) · Evaluación Parcial 2
 
 ## Integrantes
 - Sebastian Vallejos (seb.vallejos@duocuc.cl)
-- Diego Alvear (die.alvear@duocuc.cl)
 - Enzo Arriati (en.arriati@duocuc.cl)
 
 ## Caso
@@ -22,6 +21,9 @@ Los datos son simulados: viven en archivos JavaScript y en `localStorage`.
 - React Router
 - Bootstrap / React Bootstrap
 - Vitest + Testing Library + jsdom (pruebas unitarias)
+
+## Repositorio Backend
+[(Enlace repositorio backend)](https://github.com/SebastianVallejos18/backend-fullstack-2)
 
 ## Estructura del proyecto
 ```
