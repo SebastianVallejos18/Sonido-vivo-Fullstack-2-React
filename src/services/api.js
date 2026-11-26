@@ -18,3 +18,15 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Si la API responde 401 (token vencido o inválido), se cierra la sesión local.
+api.interceptors.response.use(
+  (respuesta) => respuesta,
+  (error) => {
+    if (error.response?.status === 401 && localStorage.getItem("sesion")) {
+      localStorage.removeItem("sesion");
+      window.dispatchEvent(new Event("sesion-actualizada"));
+    }
+    return Promise.reject(error);
+  }
+);

@@ -11,6 +11,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
 import OffersPage from "./pages/OffersPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import SinPermisoPage from "./pages/SinPermisoPage";
+import RutaProtegida from "./components/organisms/RutaProtegida";
 
 function App() {
   return (
@@ -25,7 +27,8 @@ function App() {
         <Route path="/confirmacion" element={<CheckoutPage />} />
         <Route path="/producto/:slug" element={<ProductDetailPage />} />
         <Route path="/ofertas" element={<OffersPage />} />
-        <Route path="/admin" element={<AdminUsersPage />} />
+        <Route path="/admin" element={<RutaProtegida roles={["ADMIN"]} pagina={<AdminUsersPage />} />} />
+        <Route path="/sin-permiso" element={<SinPermisoPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </BrowserRouter>

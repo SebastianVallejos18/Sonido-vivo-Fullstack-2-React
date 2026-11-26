@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 import { iniciarSesion, obtenerMensajeError } from "../../services/authService";
@@ -9,6 +9,7 @@ const patronCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function LoginForm() {
   const navigate = useNavigate();
+  const ubicacion = useLocation();
   const [formData, setFormData] = useState({ correo: "", password: "" });
   const [errors, setErrors] = useState({ correo: "", password: "" });
   const [cargando, setCargando] = useState(false);
@@ -41,7 +42,7 @@ function LoginForm() {
     try {
       const datos = await iniciarSesion(formData);
       setMensaje({ texto: "¡Bienvenido, " + datos.usuario.nombre + "!", tipo: "success" });
-      navigate("/");
+      navigate(ubicacion.state?.desde || "/");
     } catch (error) {
       setMensaje({ texto: obtenerMensajeError(error), tipo: "danger" });
     } finally {
