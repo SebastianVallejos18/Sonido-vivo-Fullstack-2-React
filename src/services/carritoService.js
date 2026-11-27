@@ -31,6 +31,7 @@ export function agregarProducto(producto) {
     existente.cantidad = existente.cantidad + 1;
   } else {
     carrito.push({
+      id: producto.id,
       nombre: producto.nombre,
       imagen: producto.imagen,
       precio: producto.precio,

@@ -1,18 +1,39 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import HomePageTemplate from "../components/templates/HomePageTemplate";
 import ProductDetail from "../components/organisms/ProductDetail";
-import categorias from "../data/productos";
 import { aplicarOfertas } from "../utils/ofertas";
 import { buscarProducto } from "../utils/productos";
 import { agregarProducto } from "../services/carritoService";
+import { obtenerCatalogo } from "../services/productosService";
+import { obtenerMensajeError } from "../services/authService";
 
 function ProductDetailPage() {
   const params = useParams();
+  const [categorias, setCategorias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    obtenerCatalogo()
+      .then((lista) => setCategorias(lista))
+      .catch((e) => setError(obtenerMensajeError(e)))
+      .finally(() => setCargando(false));
+  }, []);
+
   const producto = buscarProducto(aplicarOfertas(categorias), params.slug);
 
   let contenido;
 
-  if (producto) {
+  if (error) {
+    contenido = (
+      <div className="container my-4">
+        <div className="alert alert-danger" role="alert">{error}</div>
+      </div>
+    );
+  } else if (cargando) {
+    contenido = <p className="container text-muted my-4">Cargando producto...</p>;
+  } else if (producto) {
     contenido = (
       <ProductDetail product={producto} onAdd={() => agregarProducto(producto)} />
     );

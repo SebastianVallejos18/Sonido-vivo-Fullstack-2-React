@@ -1,32 +1,38 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitForElementToBeRemoved, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import CatalogPage from './CatalogPage'
 import { obtenerCarrito } from '../services/carritoService'
+import { obtenerCatalogo } from '../services/productosService'
+import categorias from '../data/productos'
+
+vi.mock('../services/productosService', () => ({ obtenerCatalogo: vi.fn() }))
+beforeEach(() => { obtenerCatalogo.mockResolvedValue(categorias) })
+
+// Renderiza la página y espera a que termine de cargar el catálogo
+async function renderCatalog() {
+  render(
+    <MemoryRouter>
+      <CatalogPage />
+    </MemoryRouter>
+  )
+  await waitForElementToBeRemoved(() => screen.queryByText('Cargando catálogo...'))
+}
 
 describe('CatalogPage', () => {
   beforeEach(() => {
     localStorage.clear()
   })
 
-  it('muestra las categorías del catálogo', () => {
-    render(
-      <MemoryRouter>
-        <CatalogPage />
-      </MemoryRouter>
-    )
-
+  it('muestra las categorías del catálogo', async () => {
+    await renderCatalog()
     expect(screen.getByRole('heading', { level: 2, name: 'Guitarras Acústicas' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 2, name: 'Micrófonos' })).toBeInTheDocument()
   })
 
   it('al agregar un producto queda guardado en el carrito y sube el contador', async () => {
     const user = userEvent.setup()
-    render(
-      <MemoryRouter>
-        <CatalogPage />
-      </MemoryRouter>
-    )
+    await renderCatalog()
 
     const titulo = screen.getByRole('heading', { level: 3, name: 'Guitarra Acústica Folk' })
     const tarjeta = titulo.closest('article')
@@ -39,17 +45,9 @@ describe('CatalogPage', () => {
 })
 
 describe('filtros de búsqueda', () => {
-  function renderCatalog() {
-    return render(
-      <MemoryRouter>
-        <CatalogPage />
-      </MemoryRouter>
-    )
-  }
-
   it('filtra los productos al escribir en el buscador', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.type(screen.getByLabelText('Buscar producto'), 'stratocaster')
 
@@ -61,7 +59,7 @@ describe('filtros de búsqueda', () => {
 
   it('muestra un mensaje cuando nada coincide', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.type(screen.getByLabelText('Buscar producto'), 'zzzz')
 
@@ -71,7 +69,7 @@ describe('filtros de búsqueda', () => {
 
   it('muestra solo la categoría elegida', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.selectOptions(screen.getByLabelText('Categoría'), 'Micrófonos')
 
@@ -82,7 +80,7 @@ describe('filtros de búsqueda', () => {
 
   it('filtra por precio máximo', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.type(screen.getByLabelText('Precio máximo'), '8000')
 
@@ -92,7 +90,7 @@ describe('filtros de búsqueda', () => {
 
   it('Limpiar filtros vuelve a mostrar todo el catálogo', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.type(screen.getByLabelText('Buscar producto'), 'zzzz')
     await user.click(screen.getByRole('button', { name: 'Limpiar filtros' }))
@@ -104,7 +102,7 @@ describe('filtros de búsqueda', () => {
 
   it('se puede agregar al carrito un producto que quedó después de filtrar', async () => {
     const user = userEvent.setup()
-    renderCatalog()
+    await renderCatalog()
 
     await user.type(screen.getByLabelText('Buscar producto'), 'stratocaster')
     await user.click(screen.getByRole('button', { name: 'Agregar al carrito' }))
@@ -114,11 +112,7 @@ describe('filtros de búsqueda', () => {
 
   it('muestra el precio con descuento en los productos en oferta y lo guarda en el carrito', async () => {
     const user = userEvent.setup()
-    render(
-      <MemoryRouter>
-        <CatalogPage />
-      </MemoryRouter>
-    )
+    await renderCatalog()
 
     const tarjeta = screen.getByRole('heading', { level: 3, name: 'Guitarra Acústica Folk' }).closest('article')
     expect(within(tarjeta).getByText('$103.992')).toBeInTheDocument()

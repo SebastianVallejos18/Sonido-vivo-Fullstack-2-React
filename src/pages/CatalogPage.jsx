@@ -1,19 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryNav from "../components/molecules/CategoryNav";
 import ProductSection from "../components/organisms/ProductSection";
 import ProductFilters from "../components/organisms/ProductFilters";
-import categorias from "../data/productos";
 import HomePageTemplate from "../components/templates/HomePageTemplate";
 import { agregarProducto } from "../services/carritoService";
 import { filtrarCategorias } from "../utils/filtros";
 import { aplicarOfertas } from "../utils/ofertas";
+import { obtenerCatalogo } from "../services/productosService";
+import { obtenerMensajeError } from "../services/authService";
+
 
 const FILTROS_VACIOS = { texto: "", categoria: "", precioMax: "" };
-const categoriasConOfertas = aplicarOfertas(categorias);
 
 function CatalogPage() {
   const [filtros, setFiltros] = useState(FILTROS_VACIOS);
+  const [categorias, setCategorias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
+  // Al entrar se pide el catálogo a la API
+  useEffect(() => {
+    obtenerCatalogo()
+      .then((lista) => setCategorias(lista))
+      .catch((e) => setError(obtenerMensajeError(e)))
+      .finally(() => setCargando(false));
+  }, []);
+
+  if (cargando || error) {
+    return (
+      <HomePageTemplate
+        content={
+          <div className="container my-4">
+            {error ? (
+              <div className="alert alert-danger" role="alert">{error}</div>
+            ) : (
+              <p className="text-muted">Cargando catálogo...</p>
+            )}
+          </div>
+        }
+      />
+    );
+  }
+
+  const categoriasConOfertas = aplicarOfertas(categorias);
   const categoriasFiltradas = filtrarCategorias(categoriasConOfertas, filtros);
   const titulos = categorias.map((categoria) => categoria.titulo);
 

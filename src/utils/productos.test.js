@@ -1,4 +1,4 @@
-import { crearSlug, buscarProducto } from './productos'
+import { crearSlug, buscarProducto, agruparPorCategoria } from './productos'
 
 const categorias = [
   {
@@ -61,5 +61,31 @@ describe('buscarProducto', () => {
 
   it('devuelve null si el producto no existe', () => {
     expect(buscarProducto(categorias, 'producto-inexistente')).toBeNull()
+  })
+})
+
+describe('agruparPorCategoria', () => {
+  const desdeApi = [
+    { id: 1, nombre: 'Guitarra Folk', descripcion: 'd', imagen: '/g.jpeg', precio: 129990, stock: 10, descuento: 20, categoria_slug: 'guitarras', categoria: 'Guitarras' },
+    { id: 2, nombre: 'Bajo 4', descripcion: 'd', imagen: '/b.jpeg', precio: 299990, stock: 3, descuento: 0, categoria_slug: 'bajos', categoria: 'Bajos' },
+    { id: 3, nombre: 'Guitarra SG', descripcion: 'd', imagen: '/g.jpeg', precio: 319990, stock: 0, descuento: 0, categoria_slug: 'guitarras', categoria: 'Guitarras' },
+    { id: 4, nombre: 'Sin categoría', descripcion: 'd', imagen: null, precio: 1000, stock: 1, descuento: 0, categoria_slug: null, categoria: null },
+  ]
+
+  it('agrupa los productos en categorías respetando el orden', () => {
+    const categorias = agruparPorCategoria(desdeApi)
+    expect(categorias.map((c) => c.id)).toEqual(['guitarras', 'bajos'])
+    expect(categorias[0].productos.map((p) => p.nombre)).toEqual(['Guitarra Folk', 'Guitarra SG'])
+  })
+
+  it('formatea el precio, conserva id y stock, y deja descuento solo si es mayor a 0', () => {
+    const [guitarras] = agruparPorCategoria(desdeApi)
+    expect(guitarras.productos[0]).toMatchObject({ id: 1, precio: '$129.990', stock: 10, descuento: 20 })
+    expect(guitarras.productos[1].descuento).toBeUndefined()
+  })
+
+  it('ignora los productos sin categoría', () => {
+    const nombres = agruparPorCategoria(desdeApi).flatMap((c) => c.productos.map((p) => p.nombre))
+    expect(nombres).not.toContain('Sin categoría')
   })
 })

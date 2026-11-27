@@ -1,7 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
+import { EVENTO_SESION } from "../../services/authService";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Header from "./Header";
+
 
 const renderHeader = () => render(<MemoryRouter><Header /></MemoryRouter>);
 
@@ -31,5 +33,20 @@ describe("Header según la sesión", () => {
     renderHeader();
     await userEvent.click(screen.getByRole("button", { name: "Cerrar sesión" }));
     expect(screen.getByRole("link", { name: "Iniciar sesión" })).toBeInTheDocument();
+  });
+
+  it("sin sesión muestra Iniciar sesión y no muestra Administración", () => {
+    renderHeader();
+    expect(screen.getByRole("link", { name: "Iniciar sesión" })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Administración" })).not.toBeInTheDocument();
+  });
+
+  it("se actualiza al iniciar sesión sin recargar la página", () => {
+    renderHeader();
+    act(() => {
+      guardarSesion("ADMIN");
+      window.dispatchEvent(new Event(EVENTO_SESION));
+    });
+    expect(screen.getByRole("link", { name: "Administración" })).toBeInTheDocument();
   });
 });
