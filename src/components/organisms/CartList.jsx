@@ -24,6 +24,15 @@ function CartList(props) {
   return (
     <section className="container my-4">
       <h2 className="mb-4">Mi carrito</h2>
+      {props.errores && props.errores.length > 0 ? (
+        <div className="alert alert-warning" role="alert">
+          <ul className="mb-0">
+            {props.errores.map((mensaje) => (
+              <li key={mensaje}>{mensaje}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="row g-4">
         <div className="col-12 col-lg-8">

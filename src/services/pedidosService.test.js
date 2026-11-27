@@ -1,104 +1,80 @@
-import { obtenerPedidos, obtenerPedido, crearPedido } from './pedidosService'
+import { api } from './api'
+import { crearPedido, obtenerPedidos, obtenerPedido, cambiarEstado } from './pedidosService'
 
-const datos = {
-  nombre: 'Juan Pérez',
-  correo: 'juan@correo.com',
-  telefono: '+56912345678',
-  metodo: 'despacho',
-  direccion: 'Av. Libertad 123, Viña del Mar',
+vi.mock('./api', () => ({ api: { get: vi.fn(), post: vi.fn(), patch: vi.fn() } }))
+
+const pedidoApi = {
+  id: 7, usuario_id: 3, cliente: 'Ana', email: 'ana@correo.cl', metodo: 'DESPACHO',
+  direccion: 'Av. Libertad 123', telefono: '+56912345678', estado: 'EN_PREPARACION',
+  total: 259980, creado_en: '2026-11-27T04:41:36.093Z',
+  items: [{ producto_id: 5, nombre: 'Guitarra', imagen: '/g.jpeg', cantidad: 2, precio_unitario: 129990 }],
 }
 
-const items = [
-  { nombre: 'Guitarra Acústica Folk', imagen: '/guitarra.jpeg', precio: '$129.990', cantidad: 1 },
-  { nombre: 'Cable Instrumento 3m', imagen: '/amplificador.jpeg', precio: '$12.990', cantidad: 2 },
-]
-
-describe('pedidosService', () => {
+describe('pedidosService (API con Axios)', () => {
   beforeEach(() => {
-    localStorage.clear()
+    vi.clearAllMocks()
   })
 
-  afterEach(() => {
-    vi.useRealTimers()
+  it('crearPedido hace POST /pedidos con el formato de la API (despacho)', async () => {
+    api.post.mockResolvedValue({ data: pedidoApi })
+
+    const pedido = await crearPedido(
+      { nombre: 'Ana', correo: 'ana@correo.cl', telefono: '+569 1234 5678', metodo: 'despacho', direccion: ' Av. Libertad 123 ' },
+      [{ id: 5, nombre: 'Guitarra', precio: '$129.990', cantidad: 2 }]
+    )
+
+    expect(api.post).toHaveBeenCalledWith('/pedidos', {
+      metodo: 'DESPACHO',
+      telefono: '+56912345678',
+      direccion: 'Av. Libertad 123',
+      items: [{ producto_id: 5, cantidad: 2 }],
+    })
+    expect(pedido).toMatchObject({ id: 7, metodo: 'despacho', estado: 'En preparación', codigoEstado: 'EN_PREPARACION', total: 259980 })
   })
 
-  describe('obtenerPedidos', () => {
-    it('devuelve una lista vacía si no hay pedidos', () => {
-      expect(obtenerPedidos()).toEqual([])
-    })
+  it('crearPedido no envía dirección si es retiro', async () => {
+    api.post.mockResolvedValue({ data: { ...pedidoApi, metodo: 'RETIRO', direccion: null } })
 
-    it('devuelve una lista vacía si lo guardado está dañado', () => {
-      localStorage.setItem('pedidos', '{esto no es json')
-      expect(obtenerPedidos()).toEqual([])
-    })
+    const pedido = await crearPedido(
+      { telefono: '+56912345678', metodo: 'retiro', direccion: '' },
+      [{ id: 5, cantidad: 1 }]
+    )
+
+    expect(api.post.mock.calls[0][1]).not.toHaveProperty('direccion')
+    expect(pedido.direccion).toBe('')
   })
 
-  describe('crearPedido', () => {
-    it('crea el pedido con id 1 y estado "En preparación"', () => {
-      const pedido = crearPedido(datos, items)
-
-      expect(pedido.id).toBe(1)
-      expect(pedido.estado).toBe('En preparación')
-    })
-
-    it('calcula el total del pedido', () => {
-      // 129.990 x 1 + 12.990 x 2 = 155.970
-      expect(crearPedido(datos, items).total).toBe(155970)
-    })
-
-    it('guarda los datos del cliente, los productos y el método', () => {
-      const pedido = crearPedido(datos, items)
-
-      expect(pedido.cliente).toEqual({
-        nombre: 'Juan Pérez',
-        correo: 'juan@correo.com',
-        telefono: '+56912345678',
-      })
-      expect(pedido.items).toHaveLength(2)
-      expect(pedido.metodo).toBe('despacho')
-      expect(pedido.direccion).toBe('Av. Libertad 123, Viña del Mar')
-    })
-
-    it('no guarda dirección cuando el método es retiro', () => {
-      const pedido = crearPedido({ ...datos, metodo: 'retiro' }, items)
-      expect(pedido.direccion).toBe('')
-    })
-
-    it('guarda la fecha del momento en que se crea', () => {
-      vi.useFakeTimers()
-      vi.setSystemTime(new Date('2026-10-25T12:00:00.000Z'))
-
-      const pedido = crearPedido(datos, items)
-
-      expect(pedido.fecha).toBe('2026-10-25T12:00:00.000Z')
-    })
-
-    it('asigna ids correlativos', () => {
-      crearPedido(datos, items)
-      const segundo = crearPedido(datos, items)
-
-      expect(segundo.id).toBe(2)
-    })
-
-    it('conserva los pedidos entre lecturas (persistencia)', () => {
-      crearPedido(datos, items)
-
-      expect(obtenerPedidos()).toHaveLength(1)
-    })
-
-    it('lanza un error si no hay productos', () => {
-      expect(() => crearPedido(datos, [])).toThrow('No se puede crear un pedido sin productos')
-    })
+  it('crearPedido no llama a la API si el carrito tiene productos sin id', async () => {
+    await expect(
+      crearPedido({ telefono: '+56912345678', metodo: 'retiro' }, [{ nombre: 'Viejo', cantidad: 1 }])
+    ).rejects.toThrow(/productos antiguos/)
+    expect(api.post).not.toHaveBeenCalled()
   })
 
-  describe('obtenerPedido', () => {
-    it('encuentra un pedido por su id', () => {
-      crearPedido(datos, items)
-      expect(obtenerPedido(1).cliente.nombre).toBe('Juan Pérez')
-    })
+  it('obtenerPedidos hace GET /pedidos', async () => {
+    api.get.mockResolvedValue({ data: [pedidoApi] })
 
-    it('devuelve null si el pedido no existe', () => {
-      expect(obtenerPedido(99)).toBeNull()
-    })
+    const pedidos = await obtenerPedidos()
+
+    expect(api.get).toHaveBeenCalledWith('/pedidos')
+    expect(pedidos[0].cliente).toBe('Ana')
+  })
+
+  it('obtenerPedido hace GET /pedidos/:id e incluye los productos', async () => {
+    api.get.mockResolvedValue({ data: pedidoApi })
+
+    const pedido = await obtenerPedido(7)
+
+    expect(api.get).toHaveBeenCalledWith('/pedidos/7')
+    expect(pedido.items).toHaveLength(1)
+  })
+
+  it('cambiarEstado hace PATCH /pedidos/:id/estado', async () => {
+    api.patch.mockResolvedValue({ data: { ...pedidoApi, estado: 'DESPACHADO' } })
+
+    const pedido = await cambiarEstado(7, 'DESPACHADO')
+
+    expect(api.patch).toHaveBeenCalledWith('/pedidos/7/estado', { estado: 'DESPACHADO' })
+    expect(pedido.estado).toBe('Despachado')
   })
 })

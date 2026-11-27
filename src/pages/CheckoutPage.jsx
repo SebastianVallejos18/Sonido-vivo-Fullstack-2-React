@@ -7,15 +7,23 @@ import { calcularTotal } from "../utils/precios";
 import OrderForm from "../components/organisms/OrderForm";
 import OrderSuccess from "../components/molecules/OrderSuccess";
 import OrderSummary from "../components/molecules/OrderSummary";
+import { obtenerSesion, obtenerMensajeError } from "../services/authService";
 
 function CheckoutPage() {
   const [items] = useState(obtenerCarrito);
   const [pedido, setPedido] = useState(null);
+  const [error, setError] = useState("");
+  const sesion = obtenerSesion();
 
-  function handleSubmit(datos) {
-    const nuevoPedido = crearPedido(datos, items);
-    vaciarCarrito();
-    setPedido(nuevoPedido);
+  // El pedido se crea en la API; si falla (ej: sin stock), el carrito no se toca
+  async function handleSubmit(datos) {
+    try {
+      const nuevoPedido = await crearPedido(datos, items);
+      vaciarCarrito();
+      setPedido(nuevoPedido);
+    } catch (e) {
+      setError(e.response ? obtenerMensajeError(e) : e.message);
+    }
   }
 
   let contenido;
@@ -38,9 +46,16 @@ function CheckoutPage() {
     contenido = (
       <div className="container my-4">
         <h2 className="mb-4">Confirmar pedido</h2>
+        {error ? (
+          <div className="alert alert-danger" role="alert">{error}</div>
+        ) : null}
         <div className="row g-4">
           <div className="col-12 col-lg-7">
-            <OrderForm onSubmit={handleSubmit} />
+            <OrderForm
+              onSubmit={handleSubmit}
+              nombre={sesion ? sesion.usuario.nombre : ""}
+              correo={sesion ? sesion.usuario.email : ""}
+            />
           </div>
           <div className="col-12 col-lg-5">
             <OrderSummary items={items} total={calcularTotal(items)} />

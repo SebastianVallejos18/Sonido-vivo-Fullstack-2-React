@@ -3,7 +3,15 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import CartPage from './CartPage'
 import { agregarProducto, obtenerCarrito } from '../services/carritoService'
+import { obtenerCatalogo } from '../services/productosService'
 
+vi.mock('../services/productosService', () => ({ obtenerCatalogo: vi.fn() }))
+
+function guardarSesion(rol) {
+  const payload = { exp: Math.floor(Date.now() / 1000) + 3600 }
+  const token = 'x.' + btoa(JSON.stringify(payload)) + '.firma'
+  localStorage.setItem('sesion', JSON.stringify({ token, usuario: { id: 1, nombre: 'Prueba', rol } }))
+}
 
 const guitarra = {
   nombre: 'Guitarra Acústica Folk',
@@ -71,22 +79,70 @@ describe('CartPage', () => {
     expect(screen.getByRole('heading', { name: 'Tu carrito está vacío' })).toBeInTheDocument()
     expect(obtenerCarrito()).toEqual([])
   })
-
-  it('lleva a la confirmación al presionar Confirmar pedido', async () => {
-  const user = userEvent.setup()
-  agregarProducto(guitarra)
-
-  render(
-    <MemoryRouter initialEntries={['/carrito']}>
-      <Routes>
-        <Route path="/carrito" element={<CartPage />} />
-        <Route path="/confirmacion" element={<p>Pantalla de confirmación</p>} />
-      </Routes>
-    </MemoryRouter>
-  )
-
-  await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
-
-  expect(screen.getByText('Pantalla de confirmación')).toBeInTheDocument()
 })
+
+describe('CartPage al presionar Confirmar pedido', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    vi.clearAllMocks()
+    obtenerCatalogo.mockResolvedValue([
+      { id: 'guitarras', titulo: 'Guitarras', productos: [{ id: 5, nombre: 'Guitarra Acústica Folk', precio: '$129.990', stock: 3 }] },
+    ])
+  })
+
+  function renderConRutas() {
+    return render(
+      <MemoryRouter initialEntries={['/carrito']}>
+        <Routes>
+          <Route path="/carrito" element={<CartPage />} />
+          <Route path="/confirmacion" element={<p>Pantalla de confirmación</p>} />
+          <Route path="/login" element={<p>Pantalla de login</p>} />
+        </Routes>
+      </MemoryRouter>
+    )
+  }
+
+  it('si un cliente tiene sesión y hay stock, lleva a la confirmación', async () => {
+    const user = userEvent.setup()
+    guardarSesion('CLIENTE')
+    agregarProducto({ ...guitarra, id: 5 })
+    renderConRutas()
+
+    await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
+
+    expect(await screen.findByText('Pantalla de confirmación')).toBeInTheDocument()
+  })
+
+  it('si no alcanza el stock, avisa en el carrito y no avanza', async () => {
+    const user = userEvent.setup()
+    guardarSesion('CLIENTE')
+    for (let i = 0; i < 4; i++) agregarProducto({ ...guitarra, id: 5 })
+    renderConRutas()
+
+    await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Solo quedan 3 unidades de "Guitarra Acústica Folk".')
+    expect(screen.queryByText('Pantalla de confirmación')).not.toBeInTheDocument()
+  })
+
+  it('sin sesión manda al login (que después vuelve a la confirmación)', async () => {
+    const user = userEvent.setup()
+    agregarProducto({ ...guitarra, id: 5 })
+    renderConRutas()
+
+    await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
+
+    expect(await screen.findByText('Pantalla de login')).toBeInTheDocument()
+  })
+
+  it('si la sesión no es de cliente, avisa que solo los clientes compran', async () => {
+    const user = userEvent.setup()
+    guardarSesion('ADMIN')
+    agregarProducto({ ...guitarra, id: 5 })
+    renderConRutas()
+
+    await user.click(screen.getByRole('button', { name: 'Confirmar pedido' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Solo las cuentas de cliente pueden hacer pedidos.')
+  })
 })

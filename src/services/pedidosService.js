@@ -1,47 +1,50 @@
-import { calcularTotal } from "../utils/precios";
+import { api } from "./api";
+import { itemsParaApi, textoEstado } from "../utils/pedidos";
 
-const CLAVE = "pedidos";
-
-export function obtenerPedidos() {
-  const guardado = localStorage.getItem(CLAVE);
-  if (!guardado) {
-    return [];
-  }
-  try {
-    return JSON.parse(guardado);
-  } catch {
-    return [];
-  }
-}
-
-export function obtenerPedido(id) {
-  return obtenerPedidos().find((pedido) => pedido.id === id) || null;
-}
-
-export function crearPedido(datos, items) {
-  if (items.length === 0) {
-    throw new Error("No se puede crear un pedido sin productos");
-  }
-
-  const pedidos = obtenerPedidos();
-  const ultimoId = pedidos.length > 0 ? pedidos[pedidos.length - 1].id : 0;
-
-  const pedido = {
-    id: ultimoId + 1,
-    fecha: new Date().toISOString(),
-    cliente: {
-      nombre: datos.nombre,
-      correo: datos.correo,
-      telefono: datos.telefono,
-    },
-    metodo: datos.metodo,
-    direccion: datos.metodo === "despacho" ? datos.direccion : "",
-    items: items,
-    total: calcularTotal(items),
-    estado: "En preparación",
+// DTO de salida: lo que llega de la API -> lo que usan los componentes
+function desdeApi(pedido) {
+  return {
+    id: pedido.id,
+    fecha: pedido.creado_en,
+    cliente: pedido.cliente,
+    correo: pedido.email,
+    metodo: pedido.metodo.toLowerCase(), // "despacho" | "retiro"
+    direccion: pedido.direccion || "",
+    telefono: pedido.telefono,
+    codigoEstado: pedido.estado, // EN_PREPARACION, DESPACHADO, ENTREGADO
+    estado: textoEstado(pedido.estado), // texto para mostrar
+    total: pedido.total,
+    items: pedido.items || [],
   };
+}
 
-  pedidos.push(pedido);
-  localStorage.setItem(CLAVE, JSON.stringify(pedidos));
-  return pedido;
+// CREATE: el cliente sale del token; aquí solo van entrega, teléfono y productos
+export async function crearPedido(datos, carrito) {
+  const cuerpo = {
+    metodo: datos.metodo.toUpperCase(),
+    telefono: datos.telefono.trim().replaceAll(" ", ""),
+    items: itemsParaApi(carrito),
+  };
+  if (datos.metodo === "despacho") {
+    cuerpo.direccion = datos.direccion.trim();
+  }
+  const respuesta = await api.post("/pedidos", cuerpo);
+  return desdeApi(respuesta.data);
+}
+
+// READ: la API devuelve solo los del cliente, o todos si es vendedor/admin
+export async function obtenerPedidos() {
+  const respuesta = await api.get("/pedidos");
+  return respuesta.data.map(desdeApi);
+}
+
+export async function obtenerPedido(id) {
+  const respuesta = await api.get("/pedidos/" + id);
+  return desdeApi(respuesta.data);
+}
+
+// UPDATE: solo vendedor/admin; el estado solo avanza
+export async function cambiarEstado(id, codigoEstado) {
+  const respuesta = await api.patch("/pedidos/" + id + "/estado", { estado: codigoEstado });
+  return desdeApi(respuesta.data);
 }

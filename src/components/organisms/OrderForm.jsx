@@ -5,9 +5,10 @@ import Button from "../atoms/Button";
 import { validarPedido } from "../../utils/validaciones";
 
 function OrderForm(props) {
+  // Si hay sesión, nombre y correo vienen llenos con los datos de la cuenta
   const [formData, setFormData] = useState({
-    nombre: "",
-    correo: "",
+    nombre: props.nombre || "",
+    correo: props.correo || "",
     telefono: "",
     metodo: "despacho",
     direccion: "",

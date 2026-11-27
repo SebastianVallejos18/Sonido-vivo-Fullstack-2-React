@@ -55,15 +55,19 @@ function Header() {
             <Nav.Link as={NavLink} to="/" end>
               Inicio
             </Nav.Link>
+            
             <Nav.Link as={NavLink} to="/catalogo">
               Productos
             </Nav.Link>
+
             <Nav.Link as={NavLink} to="/ofertas">
               Ofertas
             </Nav.Link>
+
             <Nav.Link as={NavLink} to="/contact">
               Contacto
             </Nav.Link>
+
             <Nav.Link as={NavLink} to="/carrito">
               Carrito
               {cantidad > 0 ? (
@@ -75,6 +79,18 @@ function Header() {
                 </span>
               ) : null}
             </Nav.Link>
+
+          {tieneRol(sesion, "CLIENTE") ? (
+            <Nav.Link as={NavLink} to="/mis-pedidos">
+              Mis pedidos
+            </Nav.Link>
+          ) : null}
+          {tieneRol(sesion, "ADMIN", "VENDEDOR") ? (
+            <Nav.Link as={NavLink} to="/vendedor/pedidos">
+              Pedidos
+            </Nav.Link>
+          ) : null}
+
           {tieneRol(sesion, "ADMIN") ? (
             <Nav.Link as={NavLink} to="/admin">Administración</Nav.Link>
           ) : null}

@@ -13,6 +13,9 @@ import OffersPage from "./pages/OffersPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SinPermisoPage from "./pages/SinPermisoPage";
 import RutaProtegida from "./components/organisms/RutaProtegida";
+import MyOrdersPage from "./pages/MyOrdersPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
+import OrdersPanelPage from "./pages/OrdersPanelPage";
 
 function App() {
   return (
@@ -28,6 +31,11 @@ function App() {
         <Route path="/producto/:slug" element={<ProductDetailPage />} />
         <Route path="/ofertas" element={<OffersPage />} />
         <Route path="/admin" element={<RutaProtegida roles={["ADMIN"]} pagina={<AdminUsersPage />} />} />
+        <Route path="/confirmacion" element={<RutaProtegida roles={["CLIENTE"]} pagina={<CheckoutPage />} />} />
+        <Route path="/mis-pedidos" element={<RutaProtegida roles={["CLIENTE"]} pagina={<MyOrdersPage />} />} />
+        <Route path="/pedidos/:id" element={<RutaProtegida pagina={<OrderDetailPage />} />} />
+        <Route path="/vendedor/pedidos" element={<RutaProtegida roles={["ADMIN", "VENDEDOR"]} pagina={<OrdersPanelPage />} />} />
+
         <Route path="/sin-permiso" element={<SinPermisoPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
