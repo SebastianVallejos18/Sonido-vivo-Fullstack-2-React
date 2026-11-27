@@ -8,11 +8,12 @@ import { validarUsuario } from "../../utils/validaciones";
 function UserForm(props) {
   const editando = Boolean(props.user);
 
-  const [formData, setFormData] = useState({
-    nombre: editando ? props.user.nombre : "",
-    correo: editando ? props.user.correo : "",
-    rol: editando ? props.user.rol : "",
-  });
+  // Al crear se pide contraseña; al editar no (la API no la cambia desde aquí)
+  const [formData, setFormData] = useState(
+    editando
+      ? { nombre: props.user.nombre, correo: props.user.correo, rol: props.user.rol }
+      : { nombre: "", correo: "", rol: "", password: "" }
+  );
 
   const [errors, setErrors] = useState({});
 
@@ -59,6 +60,19 @@ function UserForm(props) {
           autoComplete="off"
           error={errors.correo}
         />
+
+        {editando ? null : (
+          <FormField
+            id="password"
+            label="Contraseña"
+            type="password"
+            placeholder="Mínimo 8 caracteres"
+            value={formData.password}
+            onChange={handleChange}
+            autoComplete="new-password"
+            error={errors.password}
+          />
+        )}
 
         <FormField
           id="rol"

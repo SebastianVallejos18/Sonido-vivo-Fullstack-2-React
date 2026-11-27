@@ -1,166 +1,94 @@
+import { api } from './api'
 import {
   obtenerUsuarios,
-  obtenerUsuario,
   crearUsuario,
   actualizarUsuario,
   desactivarUsuario,
   activarUsuario,
 } from './usuariosService'
 
+// Se reemplaza Axios por funciones falsas: así no se llama a la API real
+vi.mock('./api', () => ({
+  api: { get: vi.fn(), post: vi.fn(), put: vi.fn(), delete: vi.fn(), patch: vi.fn() },
+}))
 
-const datosNuevos = {
-  nombre: 'Camila Rojas',
-  correo: 'camila@correo.com',
-  rol: 'Cliente',
-}
+const usuarioApi = { id: 2, nombre: 'Vendedor Uno', email: 'v1@sonidovivo.cl', rol: 'VENDEDOR', activo: true }
+const usuarioVista = { id: 2, nombre: 'Vendedor Uno', correo: 'v1@sonidovivo.cl', rol: 'Vendedor', activo: true }
 
-describe('usuariosService (CRUD con persistencia)', () => {
+describe('usuariosService (API con Axios)', () => {
   beforeEach(() => {
-    localStorage.clear()
+    vi.clearAllMocks()
   })
 
-  describe('obtenerUsuarios', () => {
-    it('lista los usuarios iniciales cuando no hay nada guardado', () => {
-      expect(obtenerUsuarios()).toHaveLength(4)
-    })
+  it('obtenerUsuarios hace GET /usuarios y traduce email y rol', async () => {
+    api.get.mockResolvedValue({ data: [usuarioApi] })
 
-    it('los usuarios iniciales incluyen un administrador activo', () => {
-      const administradores = obtenerUsuarios().filter(
-        (usuario) => usuario.rol === 'Administrador' && usuario.activo
-      )
-      expect(administradores).toHaveLength(1)
-    })
+    const usuarios = await obtenerUsuarios()
 
-    it('devuelve los usuarios iniciales si lo guardado está dañado', () => {
-      localStorage.setItem('usuarios', '{esto no es json')
-      expect(obtenerUsuarios()).toHaveLength(4)
-    })
+    expect(api.get).toHaveBeenCalledWith('/usuarios')
+    expect(usuarios).toEqual([usuarioVista])
   })
 
-  describe('obtenerUsuario', () => {
-    it('encuentra un usuario por su id', () => {
-      expect(obtenerUsuario(1).rol).toBe('Administrador')
+  it('crearUsuario hace POST con el formato de la API (incluye password)', async () => {
+    api.post.mockResolvedValue({ data: usuarioApi })
+
+    const creado = await crearUsuario({
+      nombre: ' Vendedor Uno ',
+      correo: 'V1@SonidoVivo.cl',
+      rol: 'Vendedor',
+      password: 'clave1234',
     })
 
-    it('devuelve null si el usuario no existe', () => {
-      expect(obtenerUsuario(99)).toBeNull()
+    expect(api.post).toHaveBeenCalledWith('/usuarios', {
+      nombre: 'Vendedor Uno',
+      email: 'v1@sonidovivo.cl',
+      rol: 'VENDEDOR',
+      password: 'clave1234',
     })
+    expect(creado).toEqual(usuarioVista)
   })
 
-  describe('crearUsuario', () => {
-    it('crea un usuario con un id nuevo y activo', () => {
-      const nuevo = crearUsuario(datosNuevos)
+  it('actualizarUsuario hace PUT /usuarios/:id sin password', async () => {
+    api.put.mockResolvedValue({ data: { ...usuarioApi, rol: 'ADMIN' } })
 
-      expect(nuevo.id).toBe(5)
-      expect(nuevo.activo).toBe(true)
-      expect(nuevo.rol).toBe('Cliente')
+    const actualizado = await actualizarUsuario(2, {
+      nombre: 'Vendedor Uno',
+      correo: 'v1@sonidovivo.cl',
+      rol: 'Administrador',
     })
 
-    it('guarda el nombre y el correo sin espacios sobrantes', () => {
-      const nuevo = crearUsuario({ ...datosNuevos, nombre: '  Camila Rojas  ', correo: ' camila@correo.com ' })
-
-      expect(nuevo.nombre).toBe('Camila Rojas')
-      expect(nuevo.correo).toBe('camila@correo.com')
+    expect(api.put).toHaveBeenCalledWith('/usuarios/2', {
+      nombre: 'Vendedor Uno',
+      email: 'v1@sonidovivo.cl',
+      rol: 'ADMIN',
     })
-
-    it('conserva los cambios entre lecturas (persistencia)', () => {
-      crearUsuario(datosNuevos)
-
-      expect(obtenerUsuarios()).toHaveLength(5)
-      expect(obtenerUsuario(5).nombre).toBe('Camila Rojas')
-    })
-
-    it('lanza un error si el nombre está vacío', () => {
-      expect(() => crearUsuario({ ...datosNuevos, nombre: '' })).toThrow('Por favor ingresa el nombre.')
-    })
-
-    it('lanza un error si el correo es inválido', () => {
-      expect(() => crearUsuario({ ...datosNuevos, correo: 'correo-malo' })).toThrow(/correo válido/)
-    })
-
-    it('lanza un error si el rol no existe', () => {
-      expect(() => crearUsuario({ ...datosNuevos, rol: 'Superusuario' })).toThrow('Selecciona un rol válido.')
-    })
-
-    it('lanza un error si el correo ya existe, sin importar las mayúsculas', () => {
-      expect(() =>
-        crearUsuario({ ...datosNuevos, correo: 'DUENO@SONIDOVIVO.CL' })
-      ).toThrow('Ya existe un usuario con ese correo')
-    })
+    expect(actualizado.rol).toBe('Administrador')
   })
 
-  describe('actualizarUsuario', () => {
-    it('actualiza solo los campos indicados', () => {
-      const actualizado = actualizarUsuario(4, { nombre: 'Cliente Frecuente' })
+  it('desactivarUsuario hace DELETE /usuarios/:id', async () => {
+    api.delete.mockResolvedValue({ data: { ...usuarioApi, activo: false } })
 
-      expect(actualizado.nombre).toBe('Cliente Frecuente')
-      expect(actualizado.correo).toBe('cliente@correo.com')
-      expect(actualizado.rol).toBe('Cliente')
-    })
+    const usuario = await desactivarUsuario(2)
 
-    it('cambia el rol de un usuario', () => {
-      expect(actualizarUsuario(4, { rol: 'Vendedor' }).rol).toBe('Vendedor')
-      expect(obtenerUsuario(4).rol).toBe('Vendedor')
-    })
-
-    it('no permite cambiar el id ni el estado desde aquí', () => {
-      const actualizado = actualizarUsuario(4, { id: 99, activo: false })
-
-      expect(actualizado.id).toBe(4)
-      expect(actualizado.activo).toBe(true)
-    })
-
-    it('permite conservar su propio correo', () => {
-      expect(() => actualizarUsuario(4, { correo: 'cliente@correo.com' })).not.toThrow()
-    })
-
-    it('lanza un error si el correo pertenece a otro usuario', () => {
-      expect(() =>
-        actualizarUsuario(4, { correo: 'vendedor1@sonidovivo.cl' })
-      ).toThrow('Ya existe un usuario con ese correo')
-    })
-
-    it('lanza un error si el usuario no existe', () => {
-      expect(() => actualizarUsuario(99, { nombre: 'Nadie' })).toThrow('El usuario no existe')
-    })
-
-    it('no deja cambiar el rol del último administrador activo', () => {
-      expect(() =>
-        actualizarUsuario(1, { rol: 'Cliente' })
-      ).toThrow('Debe quedar al menos un administrador activo')
-    })
+    expect(api.delete).toHaveBeenCalledWith('/usuarios/2')
+    expect(usuario.activo).toBe(false)
   })
 
-  describe('desactivarUsuario y activarUsuario', () => {
-    it('desactiva un usuario sin borrarlo', () => {
-      desactivarUsuario(4)
+  it('activarUsuario hace PATCH /usuarios/:id/activar', async () => {
+    api.patch.mockResolvedValue({ data: usuarioApi })
 
-      expect(obtenerUsuario(4).activo).toBe(false)
-      expect(obtenerUsuarios()).toHaveLength(4)
-    })
+    const usuario = await activarUsuario(2)
 
-    it('vuelve a activar un usuario desactivado', () => {
-      desactivarUsuario(4)
-      activarUsuario(4)
+    expect(api.patch).toHaveBeenCalledWith('/usuarios/2/activar')
+    expect(usuario.activo).toBe(true)
+  })
 
-      expect(obtenerUsuario(4).activo).toBe(true)
-    })
+  it('si la API responde con error, el error llega a quien llamó', async () => {
+    const error = { response: { status: 409, data: { error: 'El email ya está registrado' } } }
+    api.post.mockRejectedValue(error)
 
-    it('no deja desactivar al último administrador activo', () => {
-      expect(() => desactivarUsuario(1)).toThrow('Debe quedar al menos un administrador activo')
-    })
-
-    it('permite desactivar a un administrador si hay otro activo', () => {
-      crearUsuario({ nombre: 'Segundo Admin', correo: 'admin2@sonidovivo.cl', rol: 'Administrador' })
-
-      desactivarUsuario(1)
-
-      expect(obtenerUsuario(1).activo).toBe(false)
-    })
-
-    it('lanza un error si el usuario no existe', () => {
-      expect(() => desactivarUsuario(99)).toThrow('El usuario no existe')
-      expect(() => activarUsuario(99)).toThrow('El usuario no existe')
-    })
+    await expect(
+      crearUsuario({ nombre: 'X', correo: 'x@x.cl', rol: 'Cliente', password: 'clave1234' })
+    ).rejects.toBe(error)
   })
 })

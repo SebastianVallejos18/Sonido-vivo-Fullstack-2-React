@@ -41,5 +41,10 @@ export function validarUsuario(datos) {
     errores.rol = "Selecciona un rol válido.";
   }
 
+  // La contraseña solo se pide al crear (al editar el formulario no la trae)
+  if (datos.password !== undefined && datos.password.length < 8) {
+    errores.password = "La contraseña debe tener al menos 8 caracteres.";
+  }
+
   return errores;
 }

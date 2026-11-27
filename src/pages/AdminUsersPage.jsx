@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomePageTemplate from "../components/templates/HomePageTemplate";
 import UserTable from "../components/organisms/UserTable";
 import UserForm from "../components/organisms/UserForm";
@@ -9,30 +9,52 @@ import {
   desactivarUsuario,
   activarUsuario,
 } from "../services/usuariosService";
+import { obtenerMensajeError } from "../services/authService";
 
 function AdminUsersPage() {
-  const [usuarios, setUsuarios] = useState(obtenerUsuarios);
+  const [usuarios, setUsuarios] = useState([]);
+  const [cargando, setCargando] = useState(true);
   const [editando, setEditando] = useState(null);
   const [versionFormulario, setVersionFormulario] = useState(0);
   const [error, setError] = useState("");
   const [aviso, setAviso] = useState("");
 
-  function handleSubmit(datos) {
+    // Pide la lista a la API y la guarda en el estado
+  async function cargarUsuarios() {
+    try {
+      const lista = await obtenerUsuarios();
+      setUsuarios(lista);
+    } catch (e) {
+      setError(obtenerMensajeError(e));
+    } finally {
+      setCargando(false);
+    }
+  }
+
+  // Al entrar a la página se carga la lista una vez (la API es un sistema externo)
+  useEffect(() => {
+    obtenerUsuarios()
+      .then((lista) => setUsuarios(lista))
+      .catch((e) => setError(obtenerMensajeError(e)))
+      .finally(() => setCargando(false));
+  }, []);
+
+  async function handleSubmit(datos) {
     try {
       if (editando) {
-        actualizarUsuario(editando.id, datos);
+        await actualizarUsuario(editando.id, datos);
         setAviso("Usuario actualizado correctamente.");
       } else {
-        crearUsuario(datos);
+        await crearUsuario(datos);
         setAviso("Usuario creado correctamente.");
       }
 
-      setUsuarios(obtenerUsuarios());
+      await cargarUsuarios();
       setEditando(null);
       setVersionFormulario(versionFormulario + 1);
       setError("");
     } catch (e) {
-      setError(e.message);
+      setError(obtenerMensajeError(e));
       setAviso("");
     }
   }
@@ -48,20 +70,20 @@ function AdminUsersPage() {
     setError("");
   }
 
-  function handleToggle(usuario) {
+  async function handleToggle(usuario) {
     try {
       if (usuario.activo) {
-        desactivarUsuario(usuario.id);
+        await desactivarUsuario(usuario.id);
         setAviso("Usuario desactivado.");
       } else {
-        activarUsuario(usuario.id);
+        await activarUsuario(usuario.id);
         setAviso("Usuario activado.");
       }
 
-      setUsuarios(obtenerUsuarios());
+      await cargarUsuarios();
       setError("");
     } catch (e) {
-      setError(e.message);
+      setError(obtenerMensajeError(e));
       setAviso("");
     }
   }
@@ -101,11 +123,15 @@ function AdminUsersPage() {
 
             <div className="col-12 col-lg-8">
               <h2 className="h4 mb-3">Usuarios del sistema</h2>
-              <UserTable
-                users={usuarios}
-                onEdit={handleEdit}
-                onToggle={handleToggle}
-              />
+              {cargando ? (
+                <p className="text-muted">Cargando usuarios...</p>
+              ) : (
+                <UserTable
+                  users={usuarios}
+                  onEdit={handleEdit}
+                  onToggle={handleToggle}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -84,6 +84,15 @@ describe('validarUsuario', () => {
     expect(errores.rol).toBe('Selecciona un rol válido.')
   })
 
+  it('marca error si la contraseña tiene menos de 8 caracteres (modo crear)', () => {
+    const errores = validarUsuario({ ...usuarioValido, password: '123' })
+    expect(errores.password).toBe('La contraseña debe tener al menos 8 caracteres.')
+  })
+
+  it('no pide contraseña si el dato no viene (modo editar)', () => {
+    expect(validarUsuario(usuarioValido).password).toBeUndefined()
+  })
+
   it('acepta los tres roles del sistema', () => {
     for (const rol of ['Administrador', 'Vendedor', 'Cliente']) {
       expect(validarUsuario({ ...usuarioValido, rol })).toEqual({})

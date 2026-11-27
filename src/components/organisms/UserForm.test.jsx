@@ -52,6 +52,7 @@ describe('UserForm', () => {
 
       await user.type(screen.getByLabelText('Nombre'), 'Camila Rojas')
       await user.type(screen.getByLabelText('Correo electrónico'), 'camila@correo.com')
+      await user.type(screen.getByLabelText('Contraseña'), 'clave1234')
       await user.selectOptions(screen.getByLabelText('Rol'), 'Vendedor')
       await user.click(screen.getByRole('button', { name: 'Crear usuario' }))
 
@@ -60,7 +61,23 @@ describe('UserForm', () => {
         nombre: 'Camila Rojas',
         correo: 'camila@correo.com',
         rol: 'Vendedor',
+        password: 'clave1234',   
       })
+    })
+
+    it('no envía si la contraseña tiene menos de 8 caracteres', async () => {
+      const user = userEvent.setup()
+      const fakeSubmit = vi.fn()
+      render(<UserForm onSubmit={fakeSubmit} />)
+
+      await user.type(screen.getByLabelText('Nombre'), 'Camila Rojas')
+      await user.type(screen.getByLabelText('Correo electrónico'), 'camila@correo.com')
+      await user.type(screen.getByLabelText('Contraseña'), '123')
+      await user.selectOptions(screen.getByLabelText('Rol'), 'Vendedor')
+      await user.click(screen.getByRole('button', { name: 'Crear usuario' }))
+
+      expect(screen.getByText('La contraseña debe tener al menos 8 caracteres.')).toBeInTheDocument()
+      expect(fakeSubmit).not.toHaveBeenCalled()
     })
   })
 
