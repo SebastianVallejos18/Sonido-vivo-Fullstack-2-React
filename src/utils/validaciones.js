@@ -48,3 +48,33 @@ export function validarUsuario(datos) {
 
   return errores;
 }
+
+
+
+export function validarProducto(datos, categorias) {
+  const errores = {};
+  const nombre = datos.nombre.trim();
+
+  if (nombre.length < 2 || nombre.length > 100) {
+    errores.nombre = "El nombre debe tener entre 2 y 100 caracteres.";
+  }
+
+  if (!/^\d+$/.test(String(datos.precio))) {
+    errores.precio = "Ingresa un precio en pesos, sin puntos ni decimales.";
+  }
+
+  if (!/^\d+$/.test(String(datos.stock))) {
+    errores.stock = "El stock debe ser un número entero mayor o igual a 0.";
+  }
+
+  const descuento = String(datos.descuento);
+  if (!/^\d+$/.test(descuento) || Number(descuento) > 90) {
+    errores.descuento = "El descuento debe estar entre 0 y 90.";
+  }
+
+  if (!categorias.includes(datos.categoria)) {
+    errores.categoria = "Selecciona una categoría.";
+  }
+
+  return errores;
+}

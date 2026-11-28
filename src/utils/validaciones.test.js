@@ -1,5 +1,5 @@
-import { validarPedido, validarUsuario } from './validaciones'
 
+import { validarPedido, validarUsuario, validarProducto } from './validaciones'
 const datosValidos = {
   nombre: 'Juan Pérez',
   correo: 'juan@correo.com',
@@ -103,4 +103,35 @@ describe('validarUsuario', () => {
     const errores = validarUsuario({ nombre: '', correo: '', rol: '' })
     expect(Object.keys(errores)).toHaveLength(3)
   })
+
+
+
+describe('validarProducto', () => {
+  const categorias = ['Guitarras Acústicas', 'Bajos Eléctricos']
+  const valido = {
+    nombre: 'Ukelele Soprano', descripcion: '', precio: '49990', stock: '5',
+    descuento: '0', categoria: 'Guitarras Acústicas', imagen: '/guitarra.jpeg',
+  }
+
+  it('no marca errores con datos válidos', () => {
+    expect(validarProducto(valido, categorias)).toEqual({})
+  })
+
+  it('marca nombre muy corto, precio con puntos y stock negativo', () => {
+    const errores = validarProducto({ ...valido, nombre: 'U', precio: '49.990', stock: '-1' }, categorias)
+    expect(errores.nombre).toBe('El nombre debe tener entre 2 y 100 caracteres.')
+    expect(errores.precio).toBe('Ingresa un precio en pesos, sin puntos ni decimales.')
+    expect(errores.stock).toBe('El stock debe ser un número entero mayor o igual a 0.')
+  })
+
+  it('acepta stock 0 pero no descuentos mayores a 90', () => {
+    const errores = validarProducto({ ...valido, stock: '0', descuento: '95' }, categorias)
+    expect(errores.stock).toBeUndefined()
+    expect(errores.descuento).toBe('El descuento debe estar entre 0 y 90.')
+  })
+
+  it('exige una categoría de la lista', () => {
+    expect(validarProducto({ ...valido, categoria: '' }, categorias).categoria).toBe('Selecciona una categoría.')
+  })
+})
 })

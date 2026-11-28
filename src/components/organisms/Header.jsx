@@ -85,6 +85,13 @@ function Header() {
               Mis pedidos
             </Nav.Link>
           ) : null}
+           {tieneRol(sesion, "ADMIN", "VENDEDOR") ? (
+              <Nav.Link as={NavLink} to="/gestion/productos">
+                Inventario
+              </Nav.Link>
+            ) : null}
+
+
           {tieneRol(sesion, "ADMIN", "VENDEDOR") ? (
             <Nav.Link as={NavLink} to="/vendedor/pedidos">
               Pedidos

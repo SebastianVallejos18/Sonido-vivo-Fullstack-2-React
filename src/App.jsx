@@ -16,6 +16,7 @@ import RutaProtegida from "./components/organisms/RutaProtegida";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import OrdersPanelPage from "./pages/OrdersPanelPage";
+import ProductsAdminPage from "./pages/ProductsAdminPage";
 
 function App() {
   return (
@@ -35,7 +36,10 @@ function App() {
         <Route path="/mis-pedidos" element={<RutaProtegida roles={["CLIENTE"]} pagina={<MyOrdersPage />} />} />
         <Route path="/pedidos/:id" element={<RutaProtegida pagina={<OrderDetailPage />} />} />
         <Route path="/vendedor/pedidos" element={<RutaProtegida roles={["ADMIN", "VENDEDOR"]} pagina={<OrdersPanelPage />} />} />
-
+         <Route
+          path="/gestion/productos"
+          element={<RutaProtegida roles={["ADMIN", "VENDEDOR"]} pagina={<ProductsAdminPage />} />}
+        />
         <Route path="/sin-permiso" element={<SinPermisoPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
